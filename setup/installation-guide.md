@@ -18,6 +18,8 @@ If you see a version number, you're good. If not, check Node.js is installed: `n
 
 ## Step 2: Open the Project
 
+Note: If you downloaded this as a zip from GitHub, make sure the folder name has no spaces before opening it in Claude Code. Rename it to pm-portfolio-case-study-builder if needed — spaces in the path will cause Claude Code to throw a warning on every command.
+
 Navigate to this folder in your terminal:
 
 ```bash
