@@ -1,0 +1,46 @@
+# Example: Completed Writing Preferences
+
+> Fictional example. Do not copy. Use as a reference for structure and detail level.
+
+---
+
+## Your Profile
+
+- **Current Title:** Senior Product Manager
+- **Years of PM Experience:** 6
+- **PM Type:** Growth / B2B SaaS
+- **Career Stage:** Senior PM targeting Staff / Principal PM roles
+
+## Target Roles
+
+- **Target Role Level:** Staff PM, Principal PM, Group PM
+- **Target Company Types:** Series D+ startups, late-stage, or public tech companies (not FAANG)
+- **Target Industries:** SaaS, developer tools, fintech
+- **Target PM Function:** Growth, platform, or 0-to-1
+
+## Tone
+
+- **Preferred Tone:** Professional with analytical edge — not formal, not casual. Think "thoughtful senior PM writing for their portfolio, not a press release."
+- **What to Emphasize:**
+  - [x] Data fluency and metrics ownership
+  - [x] Strategic thinking and tradeoffs
+  - [x] Cross-functional leadership
+  - [ ] User research depth (not my strongest signal)
+  - [x] Execution and shipping velocity
+  - [ ] Technical depth (skip — not where I want to differentiate)
+
+## Weaknesses to Address
+
+- I've been at one company for 5 years — case studies need to show range within that context
+- My titles didn't change much — emphasize scope growth over title progression
+- I don't have consumer experience — avoid framing that assumes it
+
+## Strengths to Highlight
+
+- I run experiments well — if there's any A/B testing or instrumentation signal, front-load it
+- I'm strong on the business model side — connect product decisions to revenue/retention whenever evidence supports it
+- I've built 0-to-1 features within an established product — position as builder, not just optimizer
+
+## Notes
+
+Avoid the word "leverage." Avoid "cross-functional collaboration" as a phrase unless followed by a specific example. Don't use growth-hacker language — I want to sound like a thoughtful senior PM, not a growth bro.

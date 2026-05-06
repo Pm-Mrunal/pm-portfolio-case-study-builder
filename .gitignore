@@ -1,0 +1,27 @@
+# Personal data — do not commit
+context-library/project-inputs*.md
+context-library/writing-preferences.md
+context-library/experience-library.md
+context-library/portfolio-inputs.md
+
+# Generated outputs — do not commit
+outputs/*.md
+!outputs/README.md
+outputs/portfolio/*.md
+outputs/portfolio/*.html
+
+# Session notes and tracker
+briefings/*.md
+!briefings/README.md
+
+# Claude Code memory (contains personal user data)
+.claude/projects/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.cursor/
+.vscode/settings.json
+*.swp

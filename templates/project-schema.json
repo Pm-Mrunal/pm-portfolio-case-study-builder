@@ -1,0 +1,108 @@
+{
+  "project_basics": {
+    "project_title": "",
+    "company_or_product": "",
+    "industry_or_domain": "",
+    "project_stage": "",
+    "timeline": "",
+    "output_modes": ["tldr", "detailed"]
+  },
+  "context": {
+    "business_context": "",
+    "business_goal": "",
+    "why_now": "",
+    "constraints": []
+  },
+  "problem": {
+    "problem_statement": "",
+    "who_has_the_problem": "",
+    "prior_state": "",
+    "why_it_mattered": "",
+    "dimensions": [],
+    "_confidence": "",
+    "_evidence": []
+  },
+  "users": {
+    "primary_users": [],
+    "secondary_users": [],
+    "segments_or_personas": [],
+    "user_needs": [],
+    "_confidence": ""
+  },
+  "role_scope": {
+    "title": "",
+    "team_composition": "",
+    "my_role_summary": "",
+    "what_i_owned": [],
+    "what_i_influenced": [],
+    "what_others_owned": [],
+    "cross_functional_partners": [],
+    "_ownership_clarity": "explicit | partial | unclear",
+    "_confidence": "",
+    "_evidence": []
+  },
+  "discovery": {
+    "research_methods": [],
+    "evidence_points": [],
+    "top_insights": [],
+    "named_insights": [],
+    "pull_quotes": [],
+    "assumptions_that_changed": [],
+    "_confidence": ""
+  },
+  "strategy_decisions": {
+    "options_considered": [],
+    "selected_direction": "",
+    "tradeoffs": [],
+    "decision_rationale": "",
+    "named_decisions": [],
+    "table_viable": false,
+    "_tradeoff_explicitness": "explicit | implied | absent",
+    "_confidence": ""
+  },
+  "solution": {
+    "solution_summary": "",
+    "key_changes": [],
+    "scope_boundaries": [],
+    "rollout_or_launch_scope": "",
+    "breakdown_principle": "by_user_type | by_feature | by_component | by_concept",
+    "_confidence": ""
+  },
+  "execution": {
+    "major_milestones": [],
+    "iterations_or_experiments": [],
+    "major_challenges": [],
+    "how_challenges_were_handled": [],
+    "_confidence": ""
+  },
+  "outcomes": {
+    "launch_status": "",
+    "quantitative_results": [],
+    "qualitative_results": [],
+    "validation_signals": [],
+    "business_impact": [],
+    "user_impact": [],
+    "operational_impact": [],
+    "_confidence": "",
+    "_evidence": []
+  },
+  "reflection": {
+    "key_learnings": [],
+    "what_i_would_do_differently": [],
+    "open_questions_or_future_work": [],
+    "what_this_case_demonstrates": [],
+    "_reflection_quality": "specific | partial | generic",
+    "_confidence": ""
+  },
+  "assets": {
+    "visuals_available": [],
+    "artifact_links": [],
+    "quotes": []
+  },
+  "writing_preferences": {
+    "tone": "professional",
+    "target_role_type": "",
+    "target_company_type": "",
+    "emphasize": []
+  }
+}
