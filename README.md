@@ -82,3 +82,14 @@ The portfolio vibe-coding prompt saves to `outputs/portfolio/portfolio-prompt-[Y
 
 - Paste raw text directly (PRDs, notes, bullets, research, anything)
 - Reference file paths for PDFs, DOCX, TXT files in the project folder
+
+---
+
+## Created By
+
+**Mrunal Surve | AI Product Manager**
+🌐 [mrunalsurve.com](https://www.mrunalsurve.com/) | 💼 [LinkedIn](https://www.linkedin.com/in/mrunal-surve-iimi/)
+
+Mrunal Surve is an AI Product Manager with 7+ years of experience building digital products across B2B, B2G, and B2C in Asia, Africa, and North America. He built PM Portfolio Builder as a solo project after seeing the same problem repeatedly — product managers doing genuinely strong work but unable to articulate it in writing that holds up under recruiter and hiring manager scrutiny. The tool encodes what good PM case studies actually look like, so the output isn't just polished — it reflects real judgment.
+
+He also runs an AI Builder Bootcamp for product managers: a hands-on program covering strategy, agent design, and evaluation frameworks, helping PMs go from zero to shipping agentic AI products end-to-end.
