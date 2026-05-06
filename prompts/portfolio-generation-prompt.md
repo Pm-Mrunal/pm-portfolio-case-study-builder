@@ -2,12 +2,14 @@
 
 You are assembling a structured vibe-coding prompt that the user will paste into Lovable, Bolt, or v0 to generate their PM portfolio website. Your output is a markdown document — not HTML — written as a clear product brief for the AI in those tools.
 
+The site is multi-page: a homepage plus one individual page per case study. Cards on the homepage link to their dedicated case study page. The full narrative lives on the case study page, not the homepage.
+
 The case study files are **not** embedded inline in this prompt. Instead, the user will attach those `.md` files directly to the vibe-coding tool alongside this prompt. This prompt tells the tool which files are attached, which section of each file maps to which UI component, and how to use them.
 
 Your job in this step is:
 1. Fill the prompt's design system, personal info, hero stats, AI strip, skills, about, and contact sections with real content from `portfolio-inputs.md` and the resume.
-2. For each case study, extract only the metadata needed for the card and sidebar: title, anchor ID, tags, sidebar metrics (the specific numbers), and a 1-2 sentence problem statement. Do not rewrite or summarize the case study narrative — the attached files handle that.
-3. Write the file reference instructions that tell the vibe-coding tool exactly how to use each attached case study file.
+2. For each case study, extract only the metadata needed for the homepage card: title, page filename, tags, sidebar metrics (the specific numbers), and a 1-2 sentence problem statement. Do not rewrite or summarize the case study narrative — the attached files handle that.
+3. Write the file reference instructions that tell the vibe-coding tool exactly how to use each attached case study file — RECRUITER TLDR for the homepage card, DETAILED VERSION for the individual case study page.
 
 ---
 
@@ -36,7 +38,7 @@ Write the assembled prompt as a single markdown document using the section struc
 
 ## What You're Building
 
-Build a complete, single-page PM portfolio website for [NAME], a [CURRENT ROLE] based in [LOCATION]. The site showcases [N] case studies, a skills section, an about section, and contact links. It should feel like a product-builder portfolio, not a generic PM CV site.
+Build a multi-page PM portfolio website for [NAME], a [CURRENT ROLE] based in [LOCATION]. The site has a homepage and one dedicated page per case study. The homepage showcases [N] case study cards, a skills section, an about section, and contact links. Each card links to its own full case study page. It should feel like a product-builder portfolio, not a generic PM CV site.
 
 Target audience: hiring managers and recruiters at [TARGET INDUSTRY] companies looking for [TARGET ROLE] candidates. The design and copy should signal credibility, specificity, and technical depth.
 
@@ -46,15 +48,15 @@ Target audience: hiring managers and recruiters at [TARGET INDUSTRY] companies l
 
 I am attaching [N] case study files alongside this prompt. Each file has two distinct sections:
 
-- `=== RECRUITER TLDR ===` — a concise version (300-500 words) with the problem statement, key decisions, and top outcome. Use this to populate the **case study card** in the grid.
-- `=== DETAILED HIRING MANAGER VERSION ===` — the full narrative (1,500-3,000 words) with problem, discovery, strategy, execution, impact, and learnings. Use this to populate the **full case study detail section** below the card grid.
+- `=== RECRUITER TLDR ===` — a concise version (300-500 words) with the problem statement, key decisions, and top outcome. Use this to populate the **case study card on the homepage**.
+- `=== DETAILED HIRING MANAGER VERSION ===` — the full narrative (1,500-3,000 words) with problem, discovery, strategy, execution, impact, and learnings. Use this to populate the **individual case study page** for that project.
 
 Do not summarize or paraphrase these sections. Render the content as written, formatted into the appropriate UI components.
 
 The attached files are:
-[For each case study, list the filename and its anchor ID:]
-- `[filename.md]` → case study anchor ID: `#[project-slug]`
-- `[filename.md]` → case study anchor ID: `#[project-slug]`
+[For each case study, list the filename and its dedicated page:]
+- `[filename.md]` → homepage card + individual page: `[project-slug].html`
+- `[filename.md]` → homepage card + individual page: `[project-slug].html`
 [...repeat for each case study]
 
 ---
@@ -107,25 +109,46 @@ Warm cream / charcoal / muted blue (use when user specifies this):
 
 ## Page Structure
 
-Build the following sections as a single-page layout with smooth scroll navigation:
+### Homepage (index.html)
+
+Build the following sections in order:
 
 1. **Sticky Navigation** — Name/logo left, nav links right (About, Case Studies, Skills, Contact). Mobile hamburger menu. Active link highlights on scroll.
 2. **Hero** — Name, role, location, UVP, two CTA buttons, 4-stat metrics row.
 3. **AI Work Strip** — Narrow horizontal band with 4 columns (only if AI work narrative applies — see content below).
-4. **Case Study Cards** — 2-column grid. Each card links to its full detail section via smooth scroll.
-5. **Case Study Detail Sections** — One full section per case study, with sidebar and body content drawn from the attached files.
-6. **Skills Section** — 3 columns: Technical Skills, Product Skills, Domain Expertise, displayed as pill tags.
-7. **About Section** — Bio paragraph left, career highlights and certifications right.
-8. **Contact Section** — Dark background, centered, email + LinkedIn + portfolio site links.
-9. **Footer** — Name, location, year.
+4. **Case Study Cards** — 2-column grid. Each card links to its dedicated case study page.
+5. **Skills Section** — 3 columns: Technical Skills, Product Skills, Domain Expertise, displayed as pill tags.
+6. **About Section** — Bio paragraph left, career highlights and certifications right.
+7. **Contact Section** — Dark background, centered, email + LinkedIn + portfolio site links.
+8. **Footer** — Name, location, year.
 
-UX requirements:
+Homepage UX requirements:
 - Active nav link highlights on scroll using IntersectionObserver
-- Case study card "Read More" buttons smooth-scroll to the corresponding detail section
+- Case study card "Read More" buttons navigate to `[project-slug].html`
 - Back-to-top button visible after 400px scroll
 - All external links open in new tab
 - All interactive elements keyboard accessible via Tab
 - Fade-in animation on cards and major sections as they enter the viewport
+
+### Case Study Pages ([project-slug].html)
+
+Generate one page per case study using this structure:
+
+1. **Sticky Navigation** — Same nav as homepage. Name/logo links back to `index.html`. Nav links point to homepage sections (e.g. `index.html#case-studies`).
+2. **Breadcrumb** — One line below the nav: `Portfolio → [Project Title]`. "Portfolio" links back to `index.html`.
+3. **Case Study Header** — Full-width: project title (H1), tags row, 1-2 sentence problem statement pulled from the RECRUITER TLDR.
+4. **Two-Column Body** — Desktop: left sidebar (~240px, sticky) + right body column. Mobile: sidebar stacks above body.
+   - Left sidebar: project metadata (company, timeline, role, type) + 3-5 large stat blocks (bold number + short label) from the Results/Impact section of the attached file.
+   - Right body: full `=== DETAILED HIRING MANAGER VERSION ===` content from the attached file, structured into labeled subsections (Problem, Discovery, Strategy, Execution, Impact, Key Learnings).
+5. **Back Link** — Below the body: `← Back to Portfolio` button linking to `index.html`.
+6. **Footer** — Same footer as homepage.
+
+Case study page UX requirements:
+- "Strategy" subsection uses a styled callout block (left border, light background) for the most important named decision
+- All external links open in new tab
+- All interactive elements keyboard accessible
+- Fade-in on page load for the header and body
+- No smooth-scroll anchoring needed — each page is its own document
 
 ---
 
@@ -172,26 +195,21 @@ Display as a 2-column grid (1-column on mobile). Order: put the strongest AI or 
 [For each case study, fill one card block. Extract the problem statement and top outcome from the RECRUITER TLDR section of the corresponding attached file. Do not rewrite — pull verbatim or very close to verbatim.]
 
 ### Card [N]: [PROJECT TITLE]
-**Anchor:** #[project-slug]
+**Page:** [project-slug].html
 **Tags:** [2-4 short tags, e.g. "AI Product", "0-to-1", "Consumer", "B2G" — derived from project type]
 **Problem (1-2 sentences):** [Pulled from the opening of the RECRUITER TLDR in the attached file — the "what was broken" framing]
 **Top outcome (displayed as a highlighted callout with left border):** [The lead metric or result from the RECRUITER TLDR — the single most impressive number or outcome]
-**Read More button:** smooth-scrolls to #[project-slug]
+**Read More button:** navigates to [project-slug].html
 
 [Repeat for each case study]
 
 ---
 
-## Case Study Detail Sections
+## Case Study Detail Pages
 
-One full-width section per case study. Display in the same order as the cards above.
+Generate one page per case study. Each page is a standalone file named `[project-slug].html`. Pages share the same design system as the homepage.
 
-Each section has a two-column layout on desktop:
-- **Left column (sidebar, ~240px, sticky on desktop):** project metadata and sidebar metrics
-- **Right column (body):** full case study narrative
-
-### Detail: [PROJECT TITLE]
-**Section ID:** [project-slug]
+### Page: [PROJECT TITLE] → [project-slug].html
 
 **Sidebar metadata:**
 - Company: [company name — from portfolio-inputs.md or resume]
@@ -212,7 +230,7 @@ Render the full `=== DETAILED HIRING MANAGER VERSION ===` section from the attac
 
 - **Problem** — from the Problem section of the detailed version
 - **Discovery** — from the Users and Insights or Discovery section
-- **Strategy** — from the Strategy and Decision-Making section; use a styled callout block (left border, light background) for the most important decision or key insight
+- **Strategy** — from the Strategy and Decision-Making section; use a styled callout block (left border, light background) for the most important named decision
 - **Execution** — from the Execution section
 - **Impact** — from the Outcomes/Results section; display as a bulleted list
 - **Key Learnings** — from the Reflection or Learnings section
@@ -274,14 +292,17 @@ Display as 3 columns (stack to 1 column on mobile). Each skill is a pill tag: sm
 ## Technical Requirements
 
 - React component output preferred (for Lovable/v0); pure HTML also acceptable (for Bolt)
+- Multi-page output: generate `index.html` (homepage) and one `[project-slug].html` per case study. All pages share the same design system.
+- Navigation links on case study pages point to homepage sections using `index.html#section-id` format
 - No external CDN links or Google Fonts API calls — use the system font stack above
 - No placeholder images or Lorem Ipsum text anywhere in the output
 - Mobile responsive at 768px with a single breakpoint
-- Semantic HTML5 structure with correct heading hierarchy (one H1, multiple H2s, H3s within sections)
+- Semantic HTML5 structure with correct heading hierarchy (one H1 per page, multiple H2s, H3s within sections)
 - All interactive elements keyboard accessible
-- Smooth scroll behavior for all anchor links
-- IntersectionObserver for fade-in on cards and case study sections
-- Back-to-top button appears after 400px scroll
+- Smooth scroll behavior for within-page anchor links on the homepage only
+- IntersectionObserver for fade-in on cards and major sections
+- Back-to-top button on the homepage appears after 400px scroll
+- Back link (`← Back to Portfolio`) on every case study page links to `index.html`
 ```
 
 ---
@@ -292,6 +313,8 @@ Display as 3 columns (stack to 1 column on mobile). Each skill is a pill tag: sm
 2. No section contains placeholder text or unfilled brackets.
 3. The case study order leads with the strongest AI or builder signal.
 4. The AI Work Strip columns (if included) are grounded in resume and portfolio-inputs.md content only.
-5. The attached file list in "Attached Case Study Files" matches the actual files that will be attached.
-6. The bio paragraphs draw only from portfolio-inputs.md — no invented personal details.
-7. Skills pills are drawn verbatim from portfolio-inputs.md — no additions.
+5. The attached file list in "Attached Case Study Files" lists one `[project-slug].html` filename per case study.
+6. Every homepage card "Read More" button links to the correct `[project-slug].html` filename.
+7. Every case study page has a breadcrumb and a `← Back to Portfolio` link pointing to `index.html`.
+8. The bio paragraphs draw only from portfolio-inputs.md — no invented personal details.
+9. Skills pills are drawn verbatim from portfolio-inputs.md — no additions.

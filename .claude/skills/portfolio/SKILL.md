@@ -116,4 +116,4 @@ Confirm to the user with these exact instructions:
    - `health-campaign-management-v4-2026-04-01.md` (Health Campaign Management)
 4. Paste the prompt text into the chat input alongside the attachments and send
 
-The prompt tells the tool exactly which section of each file to use for each UI component — you do not need to explain anything further. The tool will generate the full portfolio site from there."
+The tool will generate a multi-page portfolio: a homepage (`index.html`) with case study cards, and one dedicated page per case study (`[project-slug].html`). Each card on the homepage links to its case study page. The prompt tells the tool exactly which section of each file to use for each UI component — you do not need to explain anything further."
