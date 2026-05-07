@@ -87,6 +87,7 @@ Run these in order after setup:
 | `/review-as-hiring-manager` | Hiring manager critique |
 | `/tracker` | Track your portfolio coverage |
 | `/build-portfolio` | Collect resume + LinkedIn + personal details → generate vibe-coding prompt for Lovable, Bolt, or v0 |
+| `/learn` | Synthesize feedback from your editing history into named style rules — approve to update your writing preferences |
 
 ---
 

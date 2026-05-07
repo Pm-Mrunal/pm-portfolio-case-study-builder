@@ -77,6 +77,7 @@ The portfolio vibe-coding prompt saves to `outputs/portfolio/portfolio-prompt-[Y
 | `/evidence-check` | Validate evidence before generating |
 | `/tracker` | Track portfolio coverage |
 | `/build-portfolio` | Collect resume + LinkedIn + personal details → generate vibe-coding prompt for Lovable, Bolt, or v0 |
+| `/learn` | Synthesize feedback from your editing history into named style rules — approve to update your writing preferences |
 
 ## Supported Input Formats
 

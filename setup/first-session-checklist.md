@@ -69,4 +69,6 @@ Read both versions. Run `/polish` if you want a final quality pass. Then optiona
 
 Fill in `context-library/writing-preferences.md` so future case studies match your targeting. See `setup/example-writing-preferences.md` for a filled example.
 
+If you asked for any edits to the generated output during this session, run `/learn`. The system logged every change you requested — `/learn` synthesizes those into named style rules sorted by confidence, with evidence cited. Approve the ones that fit and they apply automatically to all future case studies.
+
 For subsequent case studies, start from Step 2 with a new project. Each one takes 15-20 minutes once you're set up.
