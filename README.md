@@ -18,7 +18,7 @@ pm-case-study-builder/
 ├── CLAUDE.md                        # System prompt — Claude reads this automatically
 ├── START-HERE.md                    # Read this first
 ├── setup/                           # Installation guide + first session checklist
-├── .claude/skills/                  # 9 skills that power the pipeline
+├── .claude/skills/                  # 10 skills that power the pipeline
 │   ├── quick-start/                 # Full pipeline in one command
 │   ├── ingest/                      # Document parsing and chunking
 │   ├── extract/                     # Field-level structured extraction
@@ -28,7 +28,8 @@ pm-case-study-builder/
 │   ├── polish/                      # Quality rewrite pass
 │   ├── evidence-check/              # Pre-generation evidence validation
 │   ├── tracker/                     # Portfolio coverage tracker
-│   └── portfolio/                   # Assemble full portfolio website
+│   ├── portfolio/                   # Assemble full portfolio website
+│   └── learn/                       # Style synthesis from editing behavior
 ├── context-library/                 # Your data (fill these in, not committed to git)
 │   ├── project-inputs-[slug].md     # Per-project structured data (one file per case study)
 │   ├── writing-preferences.md       # Tone, targeting, emphasis
