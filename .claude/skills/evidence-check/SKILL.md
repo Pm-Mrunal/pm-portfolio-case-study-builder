@@ -1,29 +1,31 @@
 ---
 name: evidence-check
-description: Validate evidence strength before generation. Identifies what's strong, what's weak, what might be unsupported, and recommends the best narrative angle given available data.
+description: Validates evidence strength before generating a PM case study. Scores each schema section (Problem, Role scope, Discovery, Strategy, Solution, Outcomes, Reflection, Pull quotes), flags risk patterns like overclaiming or ownership ambiguity, and recommends the 2–3 strongest narrative angles given available data. Use when the user says 'check my evidence', 'is my data strong enough', 'am I ready to generate', 'what's the strongest angle', 'I'm worried I'm overclaiming', 'my outcomes feel thin', 'my reflection feels weak', or before generating for senior roles (Staff PM, Director, VP). Do NOT use for identifying missing fields or filling gaps → use /gap-detect instead. Do NOT use to write or generate the case study → use /generate instead.
 ---
 
 # /evidence-check — Pre-Generation Evidence Validation
 
-## When to Use
+## Step 0: Read Before You Write
 
-- Before running `/generate` on a complex or high-stakes case study
-- User says "check my evidence" or "what's the strongest angle?"
-- When the extracted schema feels thin and you want to understand what you're working with
-- Recommended before generating for senior roles (Staff PM, Director, VP)
+| Source | Path | What to extract |
+|--------|------|-----------------|
+| Project schema | `context-library/project-inputs-[slug].md` | All 8 sections: Problem, Role scope, Discovery, Strategy/decisions, Solution, Outcomes, Reflection, Pull quotes |
+| Evidence check prompt | `prompts/evidence-check-prompt.md` | Scoring criteria and risk flag definitions |
 
-## Inputs
+If the slug is not in context, list all `context-library/project-inputs-*.md` files and ask: "Which project should I run an evidence check on?" Do not proceed until the project is identified and the file is read.
 
-- `context-library/project-inputs-[slug].md` — populated schema for the active project
-- `prompts/evidence-check-prompt.md`
+## Common Shortcuts — Do Not Take These
+
+| What you might think | Why it's wrong |
+|---|---|
+| "Several sections look strong — I can skip scoring the weaker ones" | Score all 8 sections. Hiring managers read the whole case study. A weak Reflection after a strong Problem is still a gap the user needs to know about. |
+| "The outcomes are clearly weak — I can skip the risk flag step" | Risk flags (Step 3) catch different problems than weakness ratings: overclaiming language, causality gaps, "we" ownership. Run Step 3 even when outcomes are already flagged weak. |
+| "The user mentioned outcomes specifically — I'll focus there" | Score all sections first, then address the user's specific concern. Partial reports create false confidence in untouched sections. |
+| "I have enough context from the conversation to skip reading the file" | Step 0 reads the actual project-inputs file. Conversation context may be incomplete or stale. Always read the file. |
 
 ## Process
 
-### Step 1: Load Schema
-
-Read the full `context-library/project-inputs-[slug].md` for the active project. If the slug is not in context, list all `context-library/project-inputs-*.md` files and ask which project to check. Assess each section.
-
-### Step 2: Score Evidence Strength
+### Step 1: Score Evidence Strength
 
 Rate each major section:
 
@@ -95,8 +97,57 @@ After the report, ask: "Ready to generate? Or would you like to add more detail 
 If the user wants to add more, accept new input and re-run extraction before generating.
 If the user says "generate anyway," proceed to `/generate` with the current schema and apply the recommended narrative strategy.
 
+## Cross-Skill Routing
+
+After evidence check, route as follows based on what was found:
+
+- Critical fields entirely absent (Outcomes = none, Role scope = none) → suggest running `/gap-detect` first to fill the highest-priority gaps before generating
+- User says "generate anyway" after seeing weak evidence → proceed to `/generate` with the recommended narrative strategy applied
+- All sections moderate or above, no critical risk flags → proceed directly to `/generate`
+- User wants to fill gaps surfaced in the evidence check → route to `/gap-detect`
+
+## Before Marking Complete
+
+Do not consider this task finished until all of the following are true:
+
+- [ ] Step 0 files were read — name which project-inputs file was used in your response
+- [ ] All 8 schema sections scored with a strength rating and notes (Problem, Role scope, Discovery, Strategy/decisions, Solution, Outcomes, Reflection, Pull quotes)
+- [ ] Step 3 risk flags checked — if none apply, state "No risk flags detected" explicitly
+- [ ] At least 2 narrative angles recommended with project-specific rationale (not generic examples)
+- [ ] Generation recommendation paragraph written — names what to emphasize, what safe phrasing to apply, what to watch for
+- [ ] Step 6 offer made — asked whether user wants to generate or add more detail first
+
+## Worked Example
+
+**Input:** User has a project schema with strong problem and discovery, weak outcomes, and one verbatim user quote.
+
+**Output shape:**
+
+```
+Evidence Check — [Project Title]
+
+Strengths:
+- [Specific field value or quote from the schema — e.g., "23% cart abandonment at 3x industry avg"]
+- [Named insight from discovery — e.g., "3 named decisions with alternatives explicitly rejected"]
+- [Human anchor — e.g., verbatim user quote: "I kept getting lost after I entered my card details"]
+
+Gaps or weak areas:
+- Outcomes: "Conversion improved significantly" — no number, no directional %, no proxy metric
+- Reflection: Generic learning about engineering involvement — not grounded in a specific decision
+
+Risk flags:
+- "Improved significantly" is an overclaim without supporting data — use safe phrasing at generation time
+
+Best narrative angles:
+- Lead with the user quote as the case study anchor — it is the most human and specific element
+- Frame as a high-judgment, tradeoff-driven case: 3 named decisions with rejected alternatives carry more weight than a missing outcome number
+
+Generation recommendation:
+Generate with discovery as the organizing spine. Use safe phrasing for outcomes: "Early validation showed..." or "Initial signals suggested..." — do not convert "improved significantly" into any number not provided by the user. For Reflection, ask the user to ground the learning in a specific moment before generating, or write it tied to the guest checkout tradeoff as the natural project-specific anchor.
+```
+
 ## Notes
 
 - This skill is informational — it does not alter the schema or generate any case study text.
-- A weak evidence check result doesn't mean the case study will be bad. A honest, well-framed case study with limited outcomes can still be strong.
+- A weak evidence check result does not mean the case study will be bad. An honest, well-framed case study with limited outcomes can still be strong.
 - Never tell the user their project "isn't good enough to write about." Every project has a case study in it — the skill is choosing the right angle.

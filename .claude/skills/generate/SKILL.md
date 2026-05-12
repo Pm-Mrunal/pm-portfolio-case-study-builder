@@ -1,25 +1,21 @@
 ---
 name: generate
-description: Generate the recruiter TLDR and detailed hiring manager case study versions from the structured schema. Uses the generation prompt and output templates.
+description: Generates the recruiter TLDR and detailed hiring manager case study from the project schema. Use when the user says "generate my case study", "write my case study", "create my case study", "write it up", "write it now", "I'm ready to generate", "let's generate", "turn this into a case study", or names a project slug with intent to produce output. Auto-fires after /gap-detect when the user signals readiness. Do NOT use for building a portfolio site → use /build-portfolio. Do NOT use to identify missing data or ask follow-up questions → use /gap-detect instead.
 ---
 
 # /generate — Case Study Generation
 
-## When to Use
+## Step 0: Read Before You Write
 
-- After `/gap-detect` has collected answers
-- User says "generate my case study" or "write it now"
-- Auto-triggered by `/quick-start` after gap questions are answered
-- User has manually filled `context-library/project-inputs-[slug].md` and is ready to generate
-- User says `/generate [project-slug]` to generate a specific existing project
+| Source | Path | What to extract |
+|--------|------|-----------------|
+| Project schema | `context-library/project-inputs-[slug].md` | All sections: project_basics, problem, role_scope, discovery, strategy, solution, outcomes, reflection, pull_quotes |
+| Writing preferences | `context-library/writing-preferences.md` | Tone, seniority target, emphasis, any hard constraints |
+| Generation prompt | `prompts/generation-prompt.md` | Core generation instructions and framing |
+| TLDR template | `templates/recruiter-tldr.md` | Exact TLDR structure and sub-block sequence |
+| Detailed template | `templates/hiring-manager-detailed.md` | Exact 10-section structure with editorial headline rules |
 
-## Inputs
-
-- `context-library/project-inputs-[slug].md` — populated schema for the active project (required)
-- `context-library/writing-preferences.md` — tone and targeting (auto-loaded if filled)
-- `prompts/generation-prompt.md` — the core generation instructions
-- `templates/recruiter-tldr.md` — TLDR structural template
-- `templates/hiring-manager-detailed.md` — detailed version structural template
+If `writing-preferences.md` is blank or missing, proceed without it — do not pause to ask.
 
 ## Pre-Generation Check
 
@@ -96,7 +92,9 @@ Up to 5 visual caption suggestions if the user mentioned screenshots, diagrams, 
 
 ### Step 6: Apply Writing Constraints
 
-Scan the entire output before saving:
+**This step is not optional.** Do not proceed to Step 7 until all 7 checks are resolved.
+
+Scan the entire output:
 - [ ] No em dashes anywhere in the body
 - [ ] No bold markdown in the body (only in section headers is acceptable)
 - [ ] No invented metrics or percentages
@@ -106,6 +104,8 @@ Scan the entire output before saving:
 - [ ] No AI disclosure language in the output
 
 ### Step 7: Run Visual Layer
+
+**This step always runs.** Do not skip it because the output looks complete.
 
 Before saving, pass both generated texts and the project schema to `/visual-layer`.
 
@@ -119,7 +119,35 @@ Load `prompts/visual-planning-prompt.md` and run its three prompts in sequence:
 2. INSERT PLACEHOLDERS PROMPT → modified TLDR + modified detailed version
 3. GENERATE CAPTIONS PROMPT → `visual_captions`
 
-This step is always run. It does not require user input.
+## Common Shortcuts — Do Not Take These
+
+| What you might think | Why it's wrong |
+|---|---|
+| "The evidence looks strong — I can skip Step 2's internal check" | Step 2 catches unsupported claims BEFORE they get written. Skipping it means weak causality or vague ownership embeds into the prose and is much harder to remove in polish. |
+| "The output reads well — I can skip Step 6 constraint scan" | Em dashes and ownership inflation sound natural in prose. They only surface under deliberate scan. Step 6 must run on the complete output, not your memory of writing it. |
+| "The case study is done — I can skip Step 7 visual layer" | Visual layer is structural, not decorative. It places [VISUAL: ...] anchors and produces the visual_plan JSON the portfolio site uses. Skipping it forces the user to re-run the whole skill. |
+| "I can run Quality Check after saving" | Quality Check is a pre-save gate. Finding a missing sub-block after saving means the file is wrong. Run it before Step 8. |
+| "The user named a project slug — I can skip the Pre-Generation Check" | The check verifies the file exists AND has the 4 required fields. A slug without a valid file means a hallucinated case study. |
+
+## Before Marking Complete
+
+Run this checklist before saving to `outputs/`:
+
+- [ ] Step 0 files were read — name which project-inputs file was used
+- [ ] Pre-Generation Check passed — all 4 required fields present
+- [ ] TLDR has all 5 sub-blocks in correct sequence
+- [ ] "What I Owned" is a numbered list (not bullets)
+- [ ] Every section in detailed version has an editorial headline (assertion or reframe, not a generic label)
+- [ ] Problem section has 3-4 numbered bold-header dimensions
+- [ ] Users and Insights headline states the key finding (not "Users and Insights")
+- [ ] Strategy section uses named decisions with alternatives OR a decision table
+- [ ] Outcomes section has an interpretation paragraph (not just stat blocks)
+- [ ] Reflection ends with a domain-specific generalizing closing statement
+- [ ] Every claim is traceable to user-provided evidence — no invented metrics
+- [ ] Step 6 constraint scan completed — no em dashes, no bold in prose paragraphs
+- [ ] Step 7 visual layer ran — visual_plan JSON and [VISUAL: ...] placeholders are in the output
+
+Only after all boxes checked: proceed to Step 8.
 
 ### Step 8: Save Output
 
@@ -167,20 +195,4 @@ Subtitles:
 [visual_captions JSON, pretty-printed]
 ```
 
-Tell the user: "Case study saved to `outputs/[filename]`. Visual plan and caption suggestions are included at the end of the file. Run `/polish` for a final quality pass, or `/review-as-recruiter` and `/review-as-hiring-manager` for critique."
-
-## Quality Check
-
-After generating, review:
-- Does the TLDR use all five labeled sub-blocks in the correct sequence?
-- Is "What I Owned" a numbered list (not bullets)?
-- Does every major section in the detailed version have an editorial headline — not a generic label?
-- Does the Problem section have 3-4 numbered bold-header dimensions?
-- Does the Users and Insights headline state the key finding (not "Users and Insights")?
-- Does the Strategy section use named decisions with alternatives, or a decision table?
-- Does the Solution section name the structural breakdown principle before listing elements?
-- Does the Outcomes section have an interpretation paragraph (not just stat blocks)?
-- Does the Reflection end with a generalizing closing statement specific enough to signal domain expertise?
-- Is every claim traceable to user-provided evidence?
-- No em dashes in prose? No bold in prose paragraphs?
-- Would a reader know exactly what this PM personally owned vs. contributed to?
+Tell the user: "Case study saved to `outputs/[filename]`. Visual plan and caption suggestions are included at the end of the file. Run `/polish` for a final quality pass, or `/evidence-check` to validate narrative angle and evidence strength before sharing."

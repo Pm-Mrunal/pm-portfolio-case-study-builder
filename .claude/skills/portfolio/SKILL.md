@@ -1,11 +1,24 @@
 ---
 name: build-portfolio
-description: Collect resume + LinkedIn + personal details → generate a ready-to-paste vibe-coding prompt for Lovable, Bolt, or v0 that builds the full portfolio website.
+description: Assembles a complete, paste-ready vibe-coding prompt for a PM portfolio website from all generated case studies. Use when the user says "build my portfolio", "create my portfolio site", "turn my case studies into a website", "make a portfolio website", "I'm ready to publish", "I want to share my work", "ready to go live", "package my case studies into a site", or asks how to get a shareable portfolio. Auto-fires when the user finishes generating case studies and signals readiness to ship a site. Do NOT use for generating or writing case studies → use /generate instead. Do NOT use to start a new case study from scratch → use /quick-start instead.
 ---
 
 # /build-portfolio
 
 You are assembling a complete vibe-coding prompt for a product manager's portfolio. This skill collects inputs, reads all generated case studies, and produces a single structured prompt the user can paste directly into Lovable, Bolt, or v0 to build their portfolio website.
+
+---
+
+## Step 0 — Read Before You Write
+
+| Source | Path | What to extract |
+|--------|------|-----------------|
+| Case study files | `outputs/*.md` (latest version per project, skip README.md) | Project title, company, timeline, role, 3-5 metrics from outcomes section |
+| Portfolio inputs | `context-library/portfolio-inputs.md` | All personal details — name, UVP, career highlights, skills, target role |
+| Writing preferences | `context-library/writing-preferences.md` | Tone, targeting, emphasis (load if exists and filled) |
+| Generation prompt | `prompts/portfolio-generation-prompt.md` | Full assembler instructions for the vibe-coding prompt structure |
+
+Do not generate output until Step 0 is complete.
 
 ---
 
@@ -61,7 +74,7 @@ Wait for the user's response before proceeding.
 
 ## Step 4 — Save Inputs to portfolio-inputs.md
 
-After collecting answers, write all provided information to `context-library/portfolio-inputs.md` using the template structure in that file. Do not overwrite fields the user left blank — leave them as empty placeholders.
+After collecting answers, write all provided information to `context-library/portfolio-inputs.md` using the template structure in that file. For fields the user left blank: omit them from the saved file entirely — do not write empty placeholder text.
 
 Confirm: "Inputs saved to context-library/portfolio-inputs.md."
 
@@ -96,6 +109,32 @@ The output of this step is a structured markdown document — not HTML — that 
 
 ---
 
+## Common Shortcuts — Do Not Take These
+
+| What you might think | Why it's wrong |
+|---|---|
+| "The user gave me their details inline — I can skip Step 4's save to portfolio-inputs.md" | Step 4 creates the persistent record needed to regenerate the prompt without re-interviewing. Skip it and the next run starts from scratch. |
+| "The generation prompt is long — I can summarize it instead of executing it fully" | portfolio-generation-prompt.md contains the exact structure the vibe-coding tool expects. Summarizing it produces a prompt that breaks Lovable/Bolt/v0's parsing. Execute it in full. |
+| "I can tell the prompt looks complete — I'll skip the placeholder scan before saving" | Placeholder text looks like content until it's pasted into Lovable and the site renders "[Your Name]" as a heading. Scan explicitly before saving. |
+| "The user left most questions blank — I should ask follow-up questions to fill gaps" | Step 3 says answer what you can, skip anything that doesn't apply. Omit blank fields from portfolio-inputs.md. Do not re-ask. |
+| "I can give generic filenames in the attachment instructions" | Step 7's attachment list must use the actual filenames from outputs/. Generic examples mislead the user into attaching the wrong files. |
+
+## Before Marking Complete
+
+Run this checklist before saving the prompt:
+
+- [ ] Step 0 files were read — list which case study files and which prompts file were loaded
+- [ ] Step 1 confirmed case study files exist — named them explicitly
+- [ ] Step 2 determined the correct output filename (versioned if today's file already exists)
+- [ ] Step 3 asked all 15 questions in one grouped message (not sequentially)
+- [ ] Step 4 saved to context-library/portfolio-inputs.md — blank fields omitted, not left as placeholders
+- [ ] Step 5 read each case study for metadata (title, company, timeline, role, 3-5 metrics)
+- [ ] Step 6 executed portfolio-generation-prompt.md in full — design system, personal info, hero stats, case study cards, skills, about, contact all populated
+- [ ] Placeholder scan: search the assembled prompt for any [bracket text] — if found, either populate from user input or remove the field entirely. Do not save with unfilled placeholders.
+- [ ] Step 7 gives attachment instructions with actual filenames from outputs/ (not generic examples)
+
+Only after all boxes checked: save and confirm to user.
+
 ## Step 7 — Save Output and Give Attachment Instructions
 
 Save the assembled prompt to the filename determined in Step 2.
@@ -109,7 +148,7 @@ Confirm to the user with these exact instructions:
 1. Open `[filename]` and copy its full contents
 2. Go to [Lovable](https://lovable.dev), [Bolt](https://bolt.new), or [v0](https://v0.dev) and start a new project
 3. Attach these case study files to the chat (use the paperclip / file attachment button):
-[List each case study filename with its project title, e.g.:]
+[List each actual case study filename with its project title — use real filenames from outputs/, e.g.:]
    - `outflow-ai-v2-2026-04-16.md` (OutFlow AI)
    - `document-ai-oncology-v1-2026-03-31.md` (Document AI for Oncology)
    - `myvisit-homecare-consolidation-v3-2026-03-31.md` (MyVisit and HomeCare)
@@ -117,3 +156,9 @@ Confirm to the user with these exact instructions:
 4. Paste the prompt text into the chat input alongside the attachments and send
 
 The tool will generate a multi-page portfolio: a homepage (`index.html`) with case study cards, and one dedicated page per case study (`[project-slug].html`). Each card on the homepage links to its case study page. The prompt tells the tool exactly which section of each file to use for each UI component — you do not need to explain anything further."
+
+## Cross-Skill Routing
+
+- If no case studies found in outputs/ → stop, say "No case studies found yet" and suggest running `/generate` or `/quick-start` first
+- If user mentions wanting to add a new case study before building the portfolio → suggest `/quick-start` or `/generate`
+- If user wants to refine an existing case study before publishing → suggest `/polish`
