@@ -1,32 +1,21 @@
 ---
 name: learn
-description: Synthesizes the user's editing history into named style rules, presents findings by confidence tier, and writes approved rules into writing-preferences.md. Turns implicit feedback into explicit, persistent preferences.
+description: Synthesizes the user's editing history into named style rules tiered by confidence, presents findings for approval, and writes approved rules into writing-preferences.md. Use when the user says "run /learn", "synthesize my edits", "figure out my style preferences", "update my writing preferences from my edits", "what patterns have you picked up from my feedback", "analyze my editing behavior", or after multiple editing sessions on generated outputs. Do NOT use to manually add a new preference → edit context-library/writing-preferences.md directly instead. Do NOT use to generate, polish, or review a case study → use /generate, /polish, or /evidence-check instead.
 ---
 
 # /learn — Style Learning and Preference Synthesis
 
-## When to Use
+## Step 0: Load Context
 
-- After any session where the user asked for edits to generated outputs
-- When the user wants to understand what patterns Claude has inferred from their behavior
-- When the user wants to update `writing-preferences.md` based on observed editing behavior rather than manual introspection
-- Periodically — the more sessions logged, the higher the confidence of inferred rules
+Read `references/learnings.md` if it exists. Apply patterns flagged as successful. Avoid patterns flagged as failures.
 
-## What This Skill Does
+| Source | Path | What to extract |
+|--------|------|-----------------|
+| Feedback log | `briefings/feedback-log.md` | All entries, total count, date range |
+| Writing preferences | `context-library/writing-preferences.md` | Existing stated rules (for conflict detection only) |
+| Synthesis prompt | `prompts/learn-prompt.md` | Analysis process (Steps A–E: parse, group, conflict-detect, draft, identify low-confidence signals) |
 
-Reads the accumulated feedback log at `briefings/feedback-log.md`, groups entries by inferred preference pattern, assigns confidence based on signal type and frequency, and surfaces named style rules to the user. The user approves rules individually or in bulk. Approved rules are appended to `context-library/writing-preferences.md` under a dedicated "Learned Style Rules" section that all skills auto-load.
-
-This skill does not modify any prompt files or system behavior — it updates only the user's personal preferences file.
-
-## Inputs
-
-- `briefings/feedback-log.md` — accumulated feedback entries (primary source; required)
-- `context-library/writing-preferences.md` — current stated preferences (for conflict detection; optional)
-- `prompts/learn-prompt.md` — synthesis prompt
-
-## Process
-
-### Step 1: Validate Input
+## Step 1: Validate Input
 
 Check whether `briefings/feedback-log.md` exists and contains at least one entry (look for any line beginning with `## `).
 
@@ -37,9 +26,7 @@ Stop here.
 
 **If entries exist:** count the total number of entries and the date range (earliest to latest entry date). Continue.
 
----
-
-### Step 2: Load Source Files
+## Step 2: Load Source Files
 
 Read both files in full:
 1. `briefings/feedback-log.md` — all entries
@@ -47,22 +34,28 @@ Read both files in full:
 
 Say: "Reading [N] feedback entries from [earliest date] to [latest date]. Analyzing patterns..."
 
----
+## Step 3: Run Synthesis
 
-### Step 3: Run Synthesis
+Run the analysis process from `prompts/learn-prompt.md` (Steps A–E: parse and classify entries, group by pattern, detect conflicts, draft proposed text, identify low-confidence signals).
 
-Run `prompts/learn-prompt.md` against the loaded content.
-
-The synthesis must produce, in order:
-1. A list of named style rules, each with: rule name, supporting evidence entries, confidence tier, and exact proposed text for `writing-preferences.md`
-2. A separate list of low-confidence signals (single non-correction instances) — shown for awareness only, not proposed for approval
-3. A conflict list — any proposed rule whose meaning contradicts an existing explicitly stated preference in `writing-preferences.md`
+**Output format:** Use the Step 4 format below — not the output format section in `prompts/learn-prompt.md`. The analysis process from learn-prompt.md governs HOW to synthesize; Step 4 below governs HOW to present. They are different. Do not combine them.
 
 Do not present findings until the full synthesis is complete.
 
----
+## Before Presenting Findings (gate — run before Step 4)
 
-### Step 4: Present Findings
+Complete all items before proceeding to Step 4. Do not skip:
+
+- [ ] Every proposed rule is supported by at least one cited log entry — no rules invented
+- [ ] `explicit_correction` and `preference_stated` entries qualify as HIGH confidence on a single instance
+- [ ] `structural_edit` and `tone_edit` entries require 2 instances for MEDIUM, 3 for HIGH
+- [ ] `positive_signal` entries contribute to pattern weight but never qualify a rule alone
+- [ ] No rule upgrades "contributed to" ownership language or inflates role claims
+- [ ] Conflicted rules are flagged and excluded from 'approve all'
+- [ ] Proposed text for each rule is specific enough to change generation output — not a vague preference
+- [ ] Only the "Learned Style Rules" section of `writing-preferences.md` will be written to
+
+## Step 4: Present Findings
 
 Output findings in this exact structure. Do not deviate from the format.
 
@@ -77,7 +70,7 @@ Recommended to approve without review.
 
 [number]. [RULE NAME IN CAPS]
 What this means: [one sentence explaining the rule in plain language]
-Evidence: [2-3 brief entry summaries that support this rule]
+Evidence: [2-3 brief entry summaries that support this rule — include date and project slug]
 Proposed addition to writing-preferences.md:
   "[exact text to add, ready to paste]"
 
@@ -88,7 +81,7 @@ Supported by 2 entries of the same type. Review before approving.
 
 [number]. [RULE NAME IN CAPS]
 What this means: [one sentence]
-Evidence: [entry summaries]
+Evidence: [entry summaries with date and project slug]
 Proposed addition:
   "[exact text]"
 
@@ -98,7 +91,7 @@ Proposed addition:
 Single signals. Not proposed for approval. Shown so you can decide whether to state
 them explicitly in your writing preferences.
 
-· [brief description of the signal and which entry it came from]
+· [brief description of the signal, date, and project slug]
 
 [repeat for each low-confidence signal]
 
@@ -119,9 +112,7 @@ Type a number followed by your edit to modify a rule before approving (e.g. '2: 
 Type 'skip' to exit without changes.
 ```
 
----
-
-### Step 5: Handle User Response
+## Step 5: Handle User Response
 
 Wait for the user's input before proceeding. Then:
 
@@ -140,9 +131,7 @@ Write nothing. Say: "No changes made. Your feedback log is preserved — run /le
 **Conflicted rules**
 Apply only if the user listed the number explicitly. If approved, the new rule supersedes the old one. Note this in the Learned Style Rules section.
 
----
-
-### Step 6: Write Approved Rules
+## Step 6: Write Approved Rules
 
 Open `context-library/writing-preferences.md`.
 
@@ -171,9 +160,7 @@ Open `context-library/writing-preferences.md`.
 
 Do not modify the Tone, Target Roles, Weaknesses, Strengths, or Notes sections.
 
----
-
-### Step 7: Mark Log Entries as Processed
+## Step 7: Mark Log Entries as Processed
 
 Prepend the following line to the top of `briefings/feedback-log.md` (below the file header, above the first entry):
 
@@ -183,9 +170,7 @@ Prepend the following line to the top of `briefings/feedback-log.md` (below the 
 
 If a prior synthesis line already exists, replace it — do not accumulate multiple synthesis lines at the top.
 
----
-
-### Step 8: Confirm and Close
+## Step 8: Confirm and Close
 
 Tell the user:
 
@@ -196,16 +181,48 @@ Next steps:
 - Run `/learn` again after more sessions — confidence increases with more entries
 - Edit `context-library/writing-preferences.md` directly to modify or remove any rule"
 
----
+## Common Shortcuts — Do Not Take These
 
-## Quality Checks (run before Step 4)
+| What you might think | Why it's wrong |
+|----------------------|----------------|
+| "The user just wants to add a preference — I can skip synthesis and write to writing-preferences.md directly" | /learn only writes rules that are grounded in feedback log entries. For manual additions, tell the user to edit the file directly. |
+| "The feedback log has only 2 entries — I'll skip tiering and just list the rules" | Confidence tiers are the whole point of /learn. Apply them regardless of entry count. If <3 entries and no explicit corrections, add the "low entry count" note but still tier correctly. |
+| "Both output formats look similar — I'll use the learn-prompt.md format since it's more detailed" | Use the Step 4 format exactly. learn-prompt.md's output format section is superseded by Step 4. Never mix them. |
+| "The gate items look fine — I'll present findings and check them after if needed" | The gate in "Before Presenting Findings" runs BEFORE Step 4. Every item must be true before any output is shown. |
+| "A positive_signal entry strongly supports this rule — I'll give it MEDIUM confidence" | positive_signal entries are supporting weight only. They never qualify a rule alone at any tier. |
 
-- [ ] Every proposed rule is supported by at least one log entry — no rules invented
-- [ ] `explicit_correction` and `preference_stated` entries qualify as HIGH confidence on a single instance
-- [ ] `structural_edit` and `tone_edit` entries require 2 instances for MEDIUM, 3 for HIGH
-- [ ] `positive_signal` entries contribute to pattern weight but never qualify a rule alone
-- [ ] No rule upgrades "contributed to" ownership language or inflates role claims
-- [ ] Conflicted rules are flagged and excluded from 'approve all'
-- [ ] The proposed text for each rule is specific enough to affect generation — not a vague preference
-- [ ] Only the "Learned Style Rules" section of `writing-preferences.md` is written to
-- [ ] The feedback log is never deleted, truncated, or modified beyond the synthesis annotation
+## Before Marking Complete
+
+Do not consider this task finished until all of the following are true:
+
+- [ ] `briefings/feedback-log.md` read and entry count confirmed
+- [ ] All synthesis steps (A–E from learn-prompt.md) completed before presenting
+- [ ] Pre-presentation gate passed (all 8 items checked)
+- [ ] Findings presented in Step 4 format with numbered rules
+- [ ] User response received before writing anything to writing-preferences.md
+- [ ] Only approved rules written — not skipped, conflicted, or low-confidence rules
+- [ ] "Learned Style Rules" section updated (not overwritten); "Last updated" line refreshed
+- [ ] Synthesis annotation prepended to `briefings/feedback-log.md`
+- [ ] Step 8 close message sent
+
+## Out of Scope
+
+This skill does NOT handle:
+- Manually adding a new preference to writing-preferences.md → edit the file directly
+- Generating, drafting, or refining case study content → use `/generate` or `/polish`
+- Validating evidence strength → use `/evidence-check`
+- Ingesting raw project documents → use `/ingest`
+- Running the full pipeline on a new project → use `/quick-start`
+
+## After Completing: Log Learning
+
+Append one entry to `references/learnings.md` (create if it doesn't exist):
+
+```
+Date: [today]
+Entry count: [N]
+Rules approved: [N]
+What worked: [specific pattern that produced clear, actionable rules]
+What didn't: [any synthesis failure — e.g., conflicting signals, insufficient entries, ambiguous inferred preferences]
+Edge case: [anything unexpected — empty log, all positive_signals, bulk approval, conflict detected]
+```
