@@ -1,62 +1,43 @@
 ---
 name: visual-layer
-description: Adds a visual plan, [VISUAL: ...] placeholder tags, and captions to a generated PM portfolio case study. Use when the user says "add visuals", "add visual placeholders", "add the visual layer", "make it more visual", "what charts should I add", "add diagrams to my case study", "insert visual placeholders", or after /generate completes. Auto-fires at the end of the /generate pipeline. Does not modify factual content — only adds visual annotations. Do NOT use to rewrite or edit content → use /polish. Do NOT use to add new facts → use /generate or /gap-detect. Do NOT use to build the portfolio site → use /build-portfolio.
+description: Post-processing layer that runs after case study generation. Produces a visual plan, inserts placeholders into both outputs, and generates captions. Does not modify the case study's factual content or generation logic.
 ---
 
 # /visual-layer — Visual Planning, Placeholders, and Captions
 
+## When to Use
+
+- Automatically after `/generate` completes (called internally by the generate pipeline)
+- Manually when the user says "add visuals" or "add visual placeholders"
+- When re-running visuals on an existing output: `/visual-layer [paste or reference output file]`
+
 ## What This Skill Does NOT Do
 
-- Does not modify factual content, tone, structure, or generation logic → if you need content edits, use /polish
-- Does not generate actual images → create visuals in a design tool after the plan is complete
+- Does not modify the factual content of the case study
+- Does not change tone, structure, or generation logic
+- Does not generate actual images
 - Does not reference tools like Figma unless the user explicitly mentioned them
 - Does not claim visuals exist unless they were mentioned in source inputs
 - Does not invent visual content that isn't grounded in the project data
 
-## Step 0: Detect Inputs Before Running
+## Inputs
 
-Check inputs in this order before executing any pipeline steps:
-
-| Source | Path | What to extract |
-|--------|------|-----------------|
-| Case study output | `outputs/[project-slug]-v*.md` (user-supplied or most recent for slug) | TLDR text, detailed version text, whether `## VISUAL PLAN` section already exists |
-| Project schema | `context-library/project-inputs-[project-slug].md` | Structured project data for visual planning |
-| Visual prompts | `prompts/visual-planning-prompt.md` | Prompt templates for Steps 1–3 |
-
-**If no case study text was provided and no output file was referenced:**
-Stop. Do not proceed. Say: "Which case study should I add the visual layer to?" List all files in `outputs/` that do not already contain a `## VISUAL PLAN` section.
-
-**If the output file already contains a `## VISUAL PLAN` section:**
-Do not re-run the full pipeline. Surface the existing visual plan to the user as a summary table. Say: "The visual layer is already applied to this file. Here's the current plan: [summary table]. Say 're-run visual layer' if you want a fresh pass."
-
-**If the output file exists and has no `## VISUAL PLAN` section:**
-Proceed to Step 1.
-
-Only proceed past Step 0 once inputs are confirmed.
+- `tldr_case_study` — the generated TLDR text (from `/generate`)
+- `detailed_case_study` — the generated detailed version text (from `/generate`)
+- `project_schema` — the structured project data from `context-library/project-inputs.md`
+- `prompts/visual-planning-prompt.md` — all three step prompts
 
 ## Pipeline
 
-This skill runs four steps in sequence:
+This skill runs three steps in sequence:
 
 ```
-Step 0: Detect Inputs        →  confirm case study + schema available
 Step 1: Visual Planning      →  visual_plan JSON
-Step 2: Insert Placeholders  →  modified TLDR + modified detailed version
+Step 2: Insert Placeholders  →  modified tldr + modified detailed
 Step 3: Generate Captions    →  visual_captions JSON
-Step 4: Assemble + Save      →  final file written to outputs/
 ```
 
-All outputs are assembled into the final file before saving.
-
-## Common Shortcuts — Do Not Take These
-
-| What Claude might think | Why it's wrong |
-|---|---|
-| "The user mentioned the project name — I can infer the case study content" | Step 0 requires reading the actual output file. Inferred content produces invented visual placements and captions that aren't grounded in the real text. |
-| "The visual layer was already applied — I'll quietly add a couple more visuals" | If the layer is already applied, surface the existing plan and wait for confirmation. Do not silently modify the file. |
-| "I can skip Step 3 (captions) — the visual plan is enough" | Captions are required in the final output envelope. The portfolio assets section is incomplete without them. |
-| "The TLDR is short, I'll add more than 3 placeholders to be helpful" | Maximum 3 placeholders in the TLDR is a hard rule — it prevents visual overload in the short version. |
-| "Step 4 assembly is obvious — I'll describe the structure instead of producing it" | Step 4 must produce and save the actual assembled file. Describing it is not the deliverable. |
+All three outputs are assembled into the final envelope before saving.
 
 ---
 
@@ -64,7 +45,7 @@ All outputs are assembled into the final file before saving.
 
 Run `prompts/visual-planning-prompt.md` → VISUAL PLANNING PROMPT against the project schema.
 
-**Input:** structured project data
+**Input:** structured project data  
 **Output:** `visual_plan` JSON object
 
 Rules:
@@ -108,7 +89,7 @@ Rules:
 
 Run `prompts/visual-planning-prompt.md` → INSERT PLACEHOLDERS PROMPT.
 
-**Input:** `tldr_case_study` text, `detailed_case_study` text, `visual_plan`
+**Input:** `tldr_case_study` text, `detailed_case_study` text, `visual_plan`  
 **Output:** both texts with placeholders injected
 
 Placeholder format — use exactly this syntax:
@@ -153,7 +134,7 @@ The onboarding [VISUAL: diagram] flow required users to complete...
 
 Run `prompts/visual-planning-prompt.md` → GENERATE CAPTIONS PROMPT.
 
-**Input:** `visual_plan`
+**Input:** `visual_plan`  
 **Output:** `visual_captions` JSON
 
 Rules:
@@ -246,20 +227,14 @@ If no images were uploaded or mentioned, skip this step entirely.
 
 ---
 
-## Before Marking Complete
+## Quality Checks Before Finishing
 
-Do not consider this task finished until all of the following are true:
-
-- [ ] Step 0 run — confirmed case study file location and whether visual layer was already applied
-- [ ] Between 4 and 8 visuals in visual_plan JSON
-- [ ] No placeholder breaks sentence flow — all [VISUAL: ...] tags appear between paragraphs
+- [ ] Between 4 and 8 visuals in the plan
+- [ ] No placeholder breaks sentence flow
 - [ ] TLDR has no more than 3 placeholders
 - [ ] Detailed version has no more than 6 placeholders
-- [ ] Every placeholder matches an entry in visual_plan by visual_type
+- [ ] Every placeholder matches an entry in `visual_plan` (by `visual_type`)
 - [ ] Every caption is 1-2 sentences, present tense
 - [ ] No factual content changed in either case study
 - [ ] No tools (Figma, Miro, etc.) referenced unless user mentioned them
 - [ ] No images claimed to exist unless user confirmed them
-- [ ] Final file saved to outputs/ with all 5 sections present
-
-If any item is unchecked, complete it before finishing.
