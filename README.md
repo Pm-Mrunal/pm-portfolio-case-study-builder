@@ -17,8 +17,13 @@ Open this folder in Claude Code. Paste your project documents. Answer a few ques
 pm-case-study-builder/
 ├── CLAUDE.md                        # System prompt — Claude reads this automatically
 ├── START-HERE.md                    # Read this first
-├── setup/                           # Installation guide + first session checklist
-├── .claude/skills/                  # 10 skills that power the pipeline
+├── setup/                           # Installation guide, checklist, and blank templates
+│   ├── installation-guide.md        # How to install Claude Code
+│   ├── first-session-checklist.md   # Step-by-step for your first session
+│   ├── writing-preferences-template.md   # Blank template (auto-copied on first session)
+│   ├── experience-library-template.md    # Blank template (auto-copied on first session)
+│   └── example-writing-preferences.md   # Filled fictional example for reference
+├── .claude/skills/                  # 11 skills that power the pipeline
 │   ├── quick-start/                 # Full pipeline in one command
 │   ├── ingest/                      # Document parsing and chunking
 │   ├── extract/                     # Field-level structured extraction
@@ -30,9 +35,9 @@ pm-case-study-builder/
 │   ├── tracker/                     # Portfolio coverage tracker
 │   ├── portfolio/                   # Assemble full portfolio website
 │   └── learn/                       # Style synthesis from editing behavior
-├── context-library/                 # Your data (fill these in, not committed to git)
+├── context-library/                 # Your data — auto-created, never committed to git
 │   ├── project-inputs-[slug].md     # Per-project structured data (one file per case study)
-│   ├── writing-preferences.md       # Tone, targeting, emphasis
+│   ├── writing-preferences.md       # Tone, targeting, emphasis (filled on first session)
 │   ├── experience-library.md        # Cross-project experience bank (optional)
 │   └── portfolio-inputs.md          # Resume, LinkedIn, personal details for portfolio
 ├── sub-agents/                      # Reviewer agents
@@ -53,8 +58,9 @@ pm-case-study-builder/
 ├── insider-data/                    # PM evaluation frameworks
 │   └── pm-frameworks/               # What recruiters and HMs actually look for
 ├── outputs/                         # Generated case studies land here (not committed to git)
-│   └── portfolio/                   # Generated vibe-coding prompt (portfolio-prompt-[date].md)
-└── briefings/                       # Session notes and summaries
+│   └── portfolio/                   # Generated portfolio prompt (portfolio-prompt-[date].md)
+└── briefings/                       # Feedback log and session notes (not committed to git)
+    └── feedback-log.md              # Auto-created on first session; input to /learn
 ```
 
 ## Outputs

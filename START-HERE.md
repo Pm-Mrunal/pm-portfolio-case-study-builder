@@ -26,11 +26,11 @@ Then paste your project documents. You'll have a draft case study before you fin
 
 ## Full Setup (20 min)
 
-**Step 1: Fill your writing preferences (5 min)**
-Say `Help me fill out my writing preferences`. This sets your tone, target role type, and emphasis areas. Drives everything downstream. See `setup/example-writing-preferences.md` for a filled example.
+**Step 1: Writing preferences (automatic on first session)**
+When you open Claude Code for the first time, it will ask you 5 questions about your role, target companies, and PM style. Your answers are saved to `context-library/writing-preferences.md` and applied to every case study automatically. You can also say `set up my writing preferences` to re-run this at any time, or paste your resume and say "fill my writing preferences from this." See `setup/example-writing-preferences.md` for a filled example.
 
 **Step 2: Build your experience library (optional, 10 min)**
-Say `Help me build my experience library`. Paste your resume and LinkedIn. Claude organizes your story bank so future case studies draw from the same pool. See `setup/example-experience-library.md`.
+Say `build my experience library from this` and paste your resume and LinkedIn. Claude organizes your story bank so future case studies draw from the same evidence pool. See `setup/writing-preferences-template.md` for the structure.
 
 **Step 3: Run your first case study (10-15 min)**
 Say `build my case study` and paste your documents. Or run `/quick-start` for a fast first draft.
@@ -93,9 +93,12 @@ Run these in order after setup:
 
 ## What to Fill In
 
-Before your first real case study, fill in:
-- `context-library/project-inputs-[slug].md` — your project data (or just paste docs and let Claude extract it; one file per case study)
-- `context-library/writing-preferences.md` — your tone and targeting
+Claude auto-creates these files on your first session and walks you through setup:
+- `context-library/writing-preferences.md` — filled via 5-question onboarding on first session
+- `context-library/experience-library.md` — say "build my experience library from this" and paste your resume
+
+After your first case study:
+- `context-library/project-inputs-[slug].md` — created automatically by `/quick-start` or `/ingest`
 
 See `setup/first-session-checklist.md` to get oriented fast.
 

@@ -67,7 +67,7 @@ Read both versions. Run `/polish` if you want a final quality pass. Then optiona
 
 ## After Your First Session
 
-Fill in `context-library/writing-preferences.md` so future case studies match your targeting. See `setup/example-writing-preferences.md` for a filled example.
+Your writing preferences were set up automatically when you opened Claude Code for the first time — no manual editing needed. If you want to review or adjust them, open `context-library/writing-preferences.md` or say "update my writing preferences."
 
 If you asked for any edits to the generated output during this session, run `/learn`. The system logged every change you requested — `/learn` synthesizes those into named style rules sorted by confidence, with evidence cited. Approve the ones that fit and they apply automatically to all future case studies.
 
