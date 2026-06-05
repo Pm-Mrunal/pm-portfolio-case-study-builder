@@ -87,6 +87,8 @@ Do not announce memory updates. Do not ask permission. Just do it.
 
 ## Available Commands
 
+This table is the canonical command reference for the project. README.md and START-HERE.md point here rather than maintaining their own copies. When a command is added, renamed, or removed, update this table only.
+
 | Command | What It Does |
 |---|---|
 | `/quick-start` | Full pipeline in one command — paste docs and go |

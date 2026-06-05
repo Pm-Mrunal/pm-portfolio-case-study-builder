@@ -74,20 +74,7 @@ Run these in order after setup:
 
 ## Available Commands
 
-| Command | What It Does |
-|---|---|
-| `/quick-start` | Full pipeline in one shot — paste docs, get case study |
-| `/ingest` | Parse uploaded documents |
-| `/extract` | Extract structured data field-by-field |
-| `/gap-detect` | Identify gaps, ask 3-5 targeted questions |
-| `/generate` | Generate both case study versions |
-| `/polish` | Quality rewrite pass |
-| `/evidence-check` | Validate evidence before generating |
-| `/review-as-recruiter` | Recruiter critique |
-| `/review-as-hiring-manager` | Hiring manager critique |
-| `/tracker` | Track your portfolio coverage |
-| `/build-portfolio` | Collect resume + LinkedIn + personal details → generate vibe-coding prompt for Lovable, Bolt, or v0 |
-| `/learn` | Synthesize feedback from your editing history into named style rules — approve to update your writing preferences |
+Start with the three commands above. For the complete command reference — every pipeline step plus the recruiter and hiring-manager reviews, tracker, and learn — see the Available Commands table in [`CLAUDE.md`](CLAUDE.md), the single source of truth for commands.
 
 ---
 
