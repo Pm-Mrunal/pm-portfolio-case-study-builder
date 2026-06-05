@@ -54,7 +54,7 @@ Run these in order after setup:
 
 **For every case study:**
 - Recruiter TLDR (350-500 words) — scannable, front-loaded with signal
-- Detailed hiring manager version (1,800-2,800 words) — causal narrative with decisions, tradeoffs, reflection
+- Detailed hiring manager version (1,200-2,000 words) — causal narrative with decisions, tradeoffs, reflection
 - 3 portfolio headline options
 - 2 subtitle options
 - Visual caption suggestions (if you have screenshots or diagrams)

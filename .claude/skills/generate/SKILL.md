@@ -65,7 +65,7 @@ Structure (from `templates/recruiter-tldr.md`) — five labeled sub-blocks in th
 
 ### Step 4: Generate Detailed Version
 
-Target: 1,800-2,800 words. Analytical, causal, evidence-led. Every section has an editorial headline — a reframing or assertion, not a generic label.
+Target: 1,200-2,000 words. Analytical, causal, evidence-led. Every section has an editorial headline — a reframing or assertion, not a generic label.
 
 Structure (from `templates/hiring-manager-detailed.md`):
 1. Title and thesis — project title + one sentence naming the core PM challenge
@@ -161,7 +161,7 @@ Format:
 
 ## RECRUITER TLDR
 
-[450-650 words, with [VISUAL: ...] placeholders]
+[350-500 words, with [VISUAL: ...] placeholders]
 
 ---
 

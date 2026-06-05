@@ -79,7 +79,7 @@ Run `prompts/generation-prompt.md`.
 
 Produce:
 - Recruiter TLDR (350-500 words, five labeled sub-blocks: At a glance / The Problem / Why This Matters / What I Owned / Key Results)
-- Detailed hiring manager version (1,800-2,800 words, ten sections with editorial headlines)
+- Detailed hiring manager version (1,200-2,000 words, ten sections with editorial headlines)
 - 3 portfolio headline options
 - 2 subtitle options
 
@@ -134,7 +134,7 @@ Tell the user: "Your case study is saved to `outputs/[filename]`. Visual plan an
 
 === DETAILED HIRING MANAGER VERSION ===
 [Ten sections with editorial headlines]
-[1,800-2,800 words, with [VISUAL: ...] placeholders]
+[1,200-2,000 words, with [VISUAL: ...] placeholders]
 
 === HEADLINES + SUBTITLES ===
 Headline 1: ...
@@ -159,7 +159,7 @@ Subtitle 2: ...
 | "Skip Step 6b visual layer because no visuals were mentioned" | Visual layer always runs — it adds placeholders even when the user didn't mention visuals. No user input required. |
 | "Run quality checks after saving" | Quality checks must run BEFORE Step 7 (save). A check after save is advisory, not blocking. |
 | "Ask 5-7 questions to be thorough" | Maximum 5 questions. If confident with 3, ask only 3. Never ask 6 or 7. |
-| "Route to /review-as-recruiter when done" | That skill does not exist. Route to /polish or /evidence-check instead. |
+| "Auto-run /review-as-recruiter when done" | The review skills exist but are user-initiated, not part of the quick-start pipeline. End at polish/visual and offer them as an optional next step. |
 | "I can proceed without reading prompts/generation-prompt.md" | The output format (TLDR sub-blocks, detailed section count) is defined in that file. Skipping Step 0 produces a format that drifts from session to session. |
 
 ## Cross-Skill Routing

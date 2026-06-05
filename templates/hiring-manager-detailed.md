@@ -1,6 +1,6 @@
 # Hiring Manager Detailed Version — Output Template
 
-> Target: 1,800-2,800 words. Analytical, causal, evidence-led. Every section earns its word count.
+> Target: 1,200-2,000 words. Analytical, causal, evidence-led. Every section earns its word count.
 > Used by `/generate` as structural guidance.
 > Every section has an editorial headline — an assertion or reframing, not a generic label.
 
