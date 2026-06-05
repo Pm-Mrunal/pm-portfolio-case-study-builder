@@ -9,6 +9,7 @@ outputs/*.md
 !outputs/README.md
 outputs/portfolio/*.md
 outputs/portfolio/*.html
+outputs/improve-skill-runs/
 
 # Session notes and tracker
 briefings/*.md
@@ -16,6 +17,10 @@ briefings/*.md
 
 # Claude Code memory (contains personal user data)
 .claude/projects/
+
+# Skill run learnings — session-specific, user data
+references/learnings.md
+.claude/skills/*/references/
 
 # OS files
 .DS_Store
