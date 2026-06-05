@@ -22,6 +22,9 @@ briefings/*.md
 references/learnings.md
 .claude/skills/*/references/
 
+# Internal design skills — not for distribution
+.claude/skills/improve-skill/
+
 # OS files
 .DS_Store
 Thumbs.db
