@@ -46,6 +46,26 @@ Open the `pm-case-study-builder/` folder in Cursor, then use the built-in termin
 
 VS Code also works. Or use any standalone terminal app.
 
+## Live Portfolio Review (needed for `/review-portfolio`)
+
+The `/review-portfolio` skill visits your published portfolio in a real browser and critiques it as a recruiter would. The Playwright MCP server it uses is already declared in this repo's `.mcp.json`, so you do not need to add it manually. You only have to approve it once and install the browser:
+
+1. **Approve the server.** The first time you run `claude` in this folder, Claude Code detects the bundled Playwright server and asks you to approve it (project MCP servers always require explicit approval). Approve it. To check the status anytime:
+
+   ```bash
+   claude mcp list   # playwright should move from "Pending approval" to "✓ Connected"
+   ```
+
+2. **Install the browser** it drives (one time):
+
+   ```bash
+   npx playwright install chromium
+   ```
+
+3. **Restart Claude Code.** MCP tools load only at startup, so fully quit and reopen Claude Code in this folder after approving. After that, `/review-portfolio [your live URL]` works in any session.
+
+You do not need this to build case studies or generate the portfolio prompt — only to review a deployed site.
+
 ## Connecting to a Claude.ai Project (Optional)
 
 For persistent context across sessions, connect this folder to a Claude.ai Project:
@@ -79,3 +99,5 @@ chmod 755 briefings/
 **"CLAUDE.md not loading"** — Make sure you `cd` into the `pm-case-study-builder/` folder before running `claude`.
 
 **Output not saving** — Check that the `outputs/` folder exists and is writable. Run `mkdir -p outputs/` if needed.
+
+**`/review-portfolio` says the browser tools aren't available** — The Playwright MCP loads only at startup. Run `claude mcp list` to confirm it shows `✓ Connected`, then fully quit and reopen Claude Code in this folder. If it's missing entirely, run the setup in "Live Portfolio Review" above.

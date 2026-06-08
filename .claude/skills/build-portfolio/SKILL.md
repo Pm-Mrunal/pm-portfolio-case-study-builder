@@ -155,10 +155,15 @@ Confirm to the user with these exact instructions:
    - `health-campaign-management-v4-2026-04-01.md` (Health Campaign Management)
 4. Paste the prompt text into the chat input alongside the attachments and send
 
-The tool will generate a multi-page portfolio: a homepage (`index.html`) with case study cards, and one dedicated page per case study (`[project-slug].html`). Each card on the homepage links to its case study page. The prompt tells the tool exactly which section of each file to use for each UI component — you do not need to explain anything further."
+The tool will generate a multi-page portfolio: a homepage (`index.html`) with case study cards, and one dedicated page per case study (`[project-slug].html`). Each card on the homepage links to its case study page. The prompt tells the tool exactly which section of each file to use for each UI component — you do not need to explain anything further.
+
+**Once your site is live, your next step:** publish it to a public URL, then run `/review-portfolio` and paste the URL. I'll open your live site in a real browser, critique it the way a recruiter and hiring manager would for your target role, and hand you back prioritized fixes you can paste straight back into Lovable, Bolt, or v0. Building the site is the milestone; making sure it actually lands for recruiters is the finish line."
+
+After saving and confirming, surface the `/review-portfolio` next step explicitly rather than ending silently — building the prompt is not the end of the journey; reviewing the deployed site is.
 
 ## Cross-Skill Routing
 
 - If no case studies found in outputs/ → stop, say "No case studies found yet" and suggest running `/generate` or `/quick-start` first
 - If user mentions wanting to add a new case study before building the portfolio → suggest `/quick-start` or `/generate`
 - If user wants to refine an existing case study before publishing → suggest `/polish`
+- After the user deploys the generated site to a public URL → suggest `/review-portfolio` to critique the live site and get paste-back fixes

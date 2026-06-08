@@ -11,6 +11,7 @@ outputs/portfolio/*.md
 outputs/portfolio/*.html
 outputs/improve-skill-runs/
 outputs/create-skill-runs/
+outputs/portfolio-reviews/
 
 # Session notes and tracker
 briefings/*.md
@@ -26,6 +27,9 @@ references/learnings.md
 # Internal design skills — not for distribution
 .claude/skills/improve-skill/
 .claude/skills/create-skill/
+
+# Playwright MCP working dir (session logs, page snapshots) — for /review-portfolio
+.playwright-mcp/
 
 # OS files
 .DS_Store

@@ -104,6 +104,7 @@ This table is the canonical command reference for the project. README.md and STA
 | `/review-as-hiring-manager` | Sub-agent hiring manager lens critique |
 | `/tracker` | Log completed case studies and track portfolio coverage |
 | `/build-portfolio` | Collect resume + LinkedIn + personal details → generate a ready-to-paste vibe-coding prompt for Lovable, Bolt, or v0 |
+| `/review-portfolio` | Visit your LIVE portfolio URL in a real browser (Playwright MCP) and critique it as a recruiter/hiring manager → scored on purpose + UI craft, with paste-back fixes for Lovable, Bolt, or v0 |
 | `/learn` | Synthesize feedback from your editing history into named style rules — approve to update your writing preferences automatically |
 
 ---
@@ -165,6 +166,10 @@ The skill will:
 The output saves to `outputs/portfolio/portfolio-prompt-[YYYY-MM-DD].md`. If a file for today already exists, it versions as `-v2`, `-v3`, etc. — prior prompts are never overwritten.
 
 Copy the full contents of that file and paste it into Lovable, Bolt, or v0. The prompt is self-contained: the vibe-coding tool has everything it needs to build and style the site without any additional context from you.
+
+## Reviewing the Live Site
+
+Once the portfolio is deployed and you have a public URL, run `/review-portfolio` to close the loop. It visits the live site in a real browser via the Playwright MCP, critiques it as a recruiter and hiring manager for your target role, scores it on portfolio purpose and UI/UX craft, and returns prioritized fixes formatted as prompts you can paste straight back into Lovable, Bolt, or v0. This requires a publicly reachable URL and the Playwright MCP, which is bundled in the repo's `.mcp.json` — users approve it once and install Chromium (see `setup/installation-guide.md`). The evaluation backbone lives in `insider-data/pm-frameworks/web-portfolio-evaluation.md`.
 
 ---
 

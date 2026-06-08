@@ -38,6 +38,9 @@ Say `build my case study` and paste your documents. Or run `/quick-start` for a 
 **Step 4: Build your portfolio (10-15 min)**
 After generating your case studies, say `build my portfolio` or run `/build-portfolio`. Paste your resume and answer a few questions about your career positioning, skills, and target role. You'll get a structured vibe-coding prompt saved to `outputs/portfolio/portfolio-prompt-[YYYY-MM-DD].md`. Copy the full contents and paste it into Lovable, Bolt, or v0 — the prompt is self-contained and the tool will build and style your site without any additional context from you.
 
+**Step 5: Review your live site (5 min)**
+Once your portfolio is published to a public URL, run `/review-portfolio` and paste the link. Claude opens your live site in a real browser, critiques it the way a recruiter and hiring manager would for your target role — hero, positioning, navigation, mobile, trust signals, and UI craft — and returns prioritized fixes formatted as prompts you can paste straight back into Lovable, Bolt, or v0. Building the site is the milestone; this is the finish line. (Requires the Playwright MCP — see Setup.)
+
 ---
 
 ## Your First 3 Commands
@@ -64,6 +67,9 @@ Run these in order after setup:
 - Self-contained — paste the full file into Lovable, Bolt, or v0 with no additional context needed
 - Includes your design system, all personal content, and all case study content in full
 - The vibe-coding tool generates a mobile-responsive portfolio site with hero, case studies, skills, about, and contact
+
+**After you publish:**
+- A live-site critique from `/review-portfolio` — scored on portfolio purpose and UI/UX craft, with paste-back fixes for Lovable, Bolt, or v0
 - Versioned — each run creates a new file, never overwrites prior output
 
 **Built-in reviewers:**

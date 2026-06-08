@@ -10,6 +10,7 @@ Open this folder in Claude Code. Paste your project documents — or, if the pro
 /quick-start       →  paste docs, get case study
 /interview         →  no docs? answer questions, get case study
 /build-portfolio   →  assemble everything into a portfolio website
+/review-portfolio  →  critique your live portfolio URL as a recruiter would
 ```
 
 ## What's Inside
@@ -18,13 +19,14 @@ Open this folder in Claude Code. Paste your project documents — or, if the pro
 pm-case-study-builder/
 ├── CLAUDE.md                        # System prompt — Claude reads this automatically
 ├── START-HERE.md                    # Read this first
+├── .mcp.json                        # Bundled Playwright MCP for /review-portfolio (approve once)
 ├── setup/                           # Installation guide, checklist, and blank templates
 │   ├── installation-guide.md        # How to install Claude Code
 │   ├── first-session-checklist.md   # Step-by-step for your first session
 │   ├── writing-preferences-template.md   # Blank template (auto-copied on first session)
 │   ├── experience-library-template.md    # Blank template (auto-copied on first session)
 │   └── example-writing-preferences.md   # Filled fictional example for reference
-├── .claude/skills/                  # 12 skills that power the pipeline
+├── .claude/skills/                  # 13 skills that power the pipeline
 │   ├── quick-start/                 # Full pipeline in one command
 │   ├── interview/                   # Build a case study from a guided Q&A (no docs needed)
 │   ├── ingest/                      # Document parsing and chunking
@@ -36,6 +38,7 @@ pm-case-study-builder/
 │   ├── evidence-check/              # Pre-generation evidence validation
 │   ├── tracker/                     # Portfolio coverage tracker
 │   ├── build-portfolio/             # Assemble full portfolio website
+│   ├── review-portfolio/            # Critique the LIVE portfolio site (Playwright MCP)
 │   └── learn/                       # Style synthesis from editing behavior
 ├── context-library/                 # Your data — auto-created, never committed to git
 │   ├── project-inputs-[slug].md     # Per-project structured data (one file per case study)
@@ -72,6 +75,8 @@ All generated case studies save to `outputs/` with the filename:
 
 The portfolio vibe-coding prompt saves to `outputs/portfolio/portfolio-prompt-[YYYY-MM-DD].md`. Subsequent runs on the same day version as `-v2`, `-v3`, etc. — prior prompts are never overwritten. Copy the full file contents and paste into Lovable, Bolt, or v0 to generate your portfolio site.
 
+Once the site is live, `/review-portfolio` critiques the deployed URL and saves the scored review (with paste-back fixes and screenshots) to `outputs/portfolio-reviews/[YYYY-MM-DD].md`.
+
 ## Commands
 
 The two commands you need to start:
@@ -81,7 +86,7 @@ The two commands you need to start:
 | `/quick-start` | Full pipeline in one command — paste docs, get case study |
 | `/build-portfolio` | Assemble your case studies into a paste-ready vibe-coding prompt for Lovable, Bolt, or v0 |
 
-For the complete command reference (ingest, extract, gap-detect, generate, visual-layer, polish, evidence-check, the recruiter and hiring-manager reviews, tracker, and learn), see the Available Commands table in [`CLAUDE.md`](CLAUDE.md) — the single source of truth for commands.
+For the complete command reference (interview, ingest, extract, gap-detect, generate, visual-layer, polish, evidence-check, the recruiter and hiring-manager reviews, review-portfolio, tracker, and learn), see the Available Commands table in [`CLAUDE.md`](CLAUDE.md) — the single source of truth for commands.
 
 ## Supported Input Formats
 

@@ -72,3 +72,5 @@ Your writing preferences were set up automatically when you opened Claude Code f
 If you asked for any edits to the generated output during this session, run `/learn`. The system logged every change you requested — `/learn` synthesizes those into named style rules sorted by confidence, with evidence cited. Approve the ones that fit and they apply automatically to all future case studies.
 
 For subsequent case studies, start from Step 2 with a new project. Each one takes 15-20 minutes once you're set up.
+
+Once you have a few case studies, run `/build-portfolio` to generate your site prompt. After you publish the site to a public URL, run `/review-portfolio` and paste the link for a recruiter-lens critique of the live site (one-time Playwright MCP setup required — see `installation-guide.md`).
