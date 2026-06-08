@@ -20,7 +20,17 @@ Read these before producing any output:
 
 Do not produce any case study output until Step 0 is complete.
 
-If no documents were pasted, stop here. Say: "Paste your project documents to begin — any combination of PRD, notes, metrics, research, or resume bullets works. Once you paste something, I'll run the full pipeline."
+If documents were already pasted, proceed straight to Step 1 with the paste route.
+
+If no documents were pasted, do not stall — offer both front doors and let the user pick:
+
+"Two ways to build this case study:
+1. Paste docs and go — drop in any PRD, notes, metrics, research, or resume bullets and I'll run the full pipeline.
+2. I'll interview you — no docs needed. If it's all in your head, I'll ask you a series of targeted questions and turn your answers into the same material a strong document set would give us.
+
+Paste something to take route 1, or say 'interview me' for route 2."
+
+If the user picks route 2 (or says "interview me", "I don't have docs", "it's all in my head", "ask me questions"), hand off to `/interview`. That skill runs the discovery interview, fills the project schema, and rejoins this pipeline at the evidence gate. Do not run the paste-route steps below in that case.
 
 ## Important: Always Starts Fresh
 
@@ -71,6 +81,22 @@ Ask questions one at a time or as a numbered list. Wait for answers before gener
 
 If the user's documents are thin (under 200 words total), say: "Your documents are brief. The more context you can share, the stronger the output. Add anything — rough notes, bullet points, even a verbal brain dump works."
 
+### Step 4b: Silent Evidence Gate
+
+After gap answers are received and before generating, run a silent evidence check. This is NOT the full `/evidence-check` report — produce no scores, no section-by-section breakdown, no output unless a risk is found. Internally assess two things only:
+
+1. **Outcomes strength** — is there any quantitative result or concrete validation signal, or is the outcomes section empty/vague?
+2. **Overclaiming risk** — does the role-ownership language risk overstating contribution (claiming "led"/"owned" where the source only supports "contributed to"), or is launch success/adoption/revenue being implied without evidence?
+
+Then branch:
+
+- **Evidence strong (no risk on either)** → proceed silently to Step 5. Say nothing about the gate.
+- **Risk found on either** → surface exactly one line naming the specific risk, then offer the deeper pass. Example: "Heads up before I generate — your outcomes section is thin and there's overclaiming risk on ownership. Want me to run `/evidence-check` first, or generate now with conservative framing?"
+  - If the user says generate now → proceed to Step 5 and apply the safe phrasing rules from CLAUDE.md (use "contributed to" / "early validation showed" rather than hard claims).
+  - If the user wants the deep check → hand off to `/evidence-check`, then resume at Step 5 after.
+
+This gate never blocks on its own. It informs the user once and respects their choice. Do not run it more than once per pipeline.
+
 ### Step 5: Generate
 
 Load `context-library/writing-preferences.md` if filled. Merge with extracted schema and answers.
@@ -109,6 +135,7 @@ Do not proceed to Step 7 (save) until all items are confirmed:
 - [ ] Step 2 parse/classify ran on ALL pasted content
 - [ ] Step 3 schema extraction ran using extraction-prompts.md
 - [ ] Step 4 gap questions asked (3-5 max) AND answers received before generating
+- [ ] Step 4b silent evidence gate ran — if outcomes thin or overclaiming risk found, user was warned once and chose to proceed or run /evidence-check
 - [ ] Step 5 generation ran using generation-prompt.md — TLDR (5 sub-blocks) + detailed version (10 sections) both produced
 - [ ] Step 6 polish ran using polish-prompt.md — no new facts added
 - [ ] Step 6b visual layer ran — visual plan JSON, [VISUAL: ...] placeholders in both texts, and captions JSON all present
@@ -155,6 +182,8 @@ Subtitle 2: ...
 | What you might think | Why it's wrong |
 |----------------------|----------------|
 | "Skip Step 4 gap questions because the documents are detailed enough" | Even detailed documents miss ownership clarity and key decisions. Ask the 3 highest-impact questions. Never skip Step 4. |
+| "Skip Step 4b evidence gate because the docs look solid" | The gate is silent when evidence is strong, so it costs nothing then. Its only job is to catch thin outcomes or overclaiming before generation. Always run it; just stay quiet if there's no risk. |
+| "Turn Step 4b into a full evidence-check report" | The gate is pass/warn only. Do not print scores or section breakdowns inline. Hand off to /evidence-check only if the user asks for the deep pass. |
 | "Skip Step 6 polish because the output reads well" | Polish is required every run. Output that reads well still benefits from PM signal tightening. Run the polish prompt. |
 | "Skip Step 6b visual layer because no visuals were mentioned" | Visual layer always runs — it adds placeholders even when the user didn't mention visuals. No user input required. |
 | "Run quality checks after saving" | Quality checks must run BEFORE Step 7 (save). A check after save is advisory, not blocking. |
@@ -164,6 +193,7 @@ Subtitle 2: ...
 
 ## Cross-Skill Routing
 
+- If the user has no documents and the project is only in their head → route to `/interview` (the answer-questions front door)
 - If the user already has an existing case study file and wants to regenerate → suggest `/generate [project-slug]` instead
 - If the user wants to refine an existing case study → suggest `/polish`
 - If the user wants to validate their evidence before generating → suggest `/evidence-check`

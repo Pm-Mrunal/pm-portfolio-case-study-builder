@@ -10,6 +10,7 @@ outputs/*.md
 outputs/portfolio/*.md
 outputs/portfolio/*.html
 outputs/improve-skill-runs/
+outputs/create-skill-runs/
 
 # Session notes and tracker
 briefings/*.md
@@ -24,6 +25,7 @@ references/learnings.md
 
 # Internal design skills — not for distribution
 .claude/skills/improve-skill/
+.claude/skills/create-skill/
 
 # OS files
 .DS_Store

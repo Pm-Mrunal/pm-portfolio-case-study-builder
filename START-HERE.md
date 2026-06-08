@@ -20,7 +20,7 @@ Open this folder in your terminal, start Claude Code with `claude`, and run:
 /quick-start
 ```
 
-Then paste your project documents. You'll have a draft case study before you finish your coffee.
+Then paste your project documents. You'll have a draft case study before you finish your coffee. No documents written down? Say `interview me` instead and answer a guided set of questions — same result, no docs required.
 
 ---
 
@@ -33,7 +33,7 @@ When you open Claude Code for the first time, it will ask you 5 questions about 
 Say `build my experience library from this` and paste your resume and LinkedIn. Claude organizes your story bank so future case studies draw from the same evidence pool. See `setup/writing-preferences-template.md` for the structure.
 
 **Step 3: Run your first case study (10-15 min)**
-Say `build my case study` and paste your documents. Or run `/quick-start` for a fast first draft.
+Say `build my case study` and paste your documents. Or run `/quick-start` for a fast first draft. If the project is only in your head with nothing written down, say `interview me` and Claude will ask you ~15 targeted questions, then run the same pipeline.
 
 **Step 4: Build your portfolio (10-15 min)**
 After generating your case studies, say `build my portfolio` or run `/build-portfolio`. Paste your resume and answer a few questions about your career positioning, skills, and target role. You'll get a structured vibe-coding prompt saved to `outputs/portfolio/portfolio-prompt-[YYYY-MM-DD].md`. Copy the full contents and paste it into Lovable, Bolt, or v0 — the prompt is self-contained and the tool will build and style your site without any additional context from you.

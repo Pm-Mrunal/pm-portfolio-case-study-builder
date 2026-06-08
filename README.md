@@ -4,10 +4,11 @@ Turn messy project documents into portfolio-ready PM case studies — then assem
 
 ## How It Works
 
-Open this folder in Claude Code. Paste your project documents. Answer a few questions. Get a recruiter TLDR and a detailed hiring manager version, saved to your file system. When you have at least one case study, run `/build-portfolio` to generate a vibe-coding prompt you can paste into Lovable, Bolt, or v0.
+Open this folder in Claude Code. Paste your project documents — or, if the project is only in your head and you have nothing written down, say "interview me" and answer a guided series of questions instead. Either way, answer a few questions. Get a recruiter TLDR and a detailed hiring manager version, saved to your file system. Before generating, `/quick-start` runs a silent evidence check that warns you only if your outcomes look thin or your role ownership risks overclaiming — so the fast path stays fast but never quietly ships an overclaimed case study. When you have at least one case study, run `/build-portfolio` to generate a vibe-coding prompt you can paste into Lovable, Bolt, or v0.
 
 ```
 /quick-start       →  paste docs, get case study
+/interview         →  no docs? answer questions, get case study
 /build-portfolio   →  assemble everything into a portfolio website
 ```
 
@@ -23,8 +24,9 @@ pm-case-study-builder/
 │   ├── writing-preferences-template.md   # Blank template (auto-copied on first session)
 │   ├── experience-library-template.md    # Blank template (auto-copied on first session)
 │   └── example-writing-preferences.md   # Filled fictional example for reference
-├── .claude/skills/                  # 11 skills that power the pipeline
+├── .claude/skills/                  # 12 skills that power the pipeline
 │   ├── quick-start/                 # Full pipeline in one command
+│   ├── interview/                   # Build a case study from a guided Q&A (no docs needed)
 │   ├── ingest/                      # Document parsing and chunking
 │   ├── extract/                     # Field-level structured extraction
 │   ├── gap-detect/                  # Gap identification + targeted questions
@@ -33,7 +35,7 @@ pm-case-study-builder/
 │   ├── polish/                      # Quality rewrite pass
 │   ├── evidence-check/              # Pre-generation evidence validation
 │   ├── tracker/                     # Portfolio coverage tracker
-│   ├── portfolio/                   # Assemble full portfolio website
+│   ├── build-portfolio/             # Assemble full portfolio website
 │   └── learn/                       # Style synthesis from editing behavior
 ├── context-library/                 # Your data — auto-created, never committed to git
 │   ├── project-inputs-[slug].md     # Per-project structured data (one file per case study)

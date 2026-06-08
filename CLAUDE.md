@@ -91,7 +91,8 @@ This table is the canonical command reference for the project. README.md and STA
 
 | Command | What It Does |
 |---|---|
-| `/quick-start` | Full pipeline in one command — paste docs and go |
+| `/quick-start` | Full pipeline in one command — paste docs and go, or choose to be interviewed |
+| `/interview` | No docs? Build a case study from a guided Q&A — answers fill the schema, then the pipeline runs as normal |
 | `/ingest` | Parse and chunk your project documents |
 | `/extract` | Extract structured data field-by-field |
 | `/gap-detect` | Find what's missing, ask 3-5 targeted questions |
@@ -125,16 +126,21 @@ Every skill auto-loads these files if they exist and are filled:
 
 Every case study runs through this sequence. Run the full pipeline with `/quick-start` or step through individually.
 
+There are two front doors into the pipeline. If the user has documents, they paste them (`/quick-start`). If the project is only in their head, `/interview` runs a guided Q&A that fills the same project schema documents would — replacing `/ingest`, `/extract`, and `/gap-detect` — then rejoins at the evidence gate. When `/quick-start` is invoked with no documents pasted, it offers both doors and lets the user pick.
+
 `/quick-start` always creates a fresh project input file — it never reads or overwrites an existing one. The project slug is determined from the project name in the pasted documents.
 
 ```
 /ingest         →  Parse documents, classify, chunk → saves to context-library/project-inputs-[slug].md (new file)
 /extract        →  Field-level extraction into structured schema → updates project-inputs-[slug].md
 /gap-detect     →  Identify missing fields, ask max 5 questions
+[evidence gate] →  Silent pass/warn check (inside /quick-start only) — warns once if outcomes are thin or overclaiming risk is present
 /generate       →  Produce recruiter TLDR + detailed version
 /visual-layer   →  Visual plan + placeholders + captions (post-processing only)
 /polish         →  Quality rewrite, no new facts added
 ```
+
+Inside `/quick-start`, a silent evidence gate runs between `/gap-detect` and `/generate`. It produces no report — it stays quiet when evidence is strong, and surfaces a single warning line only if outcomes are thin or role ownership risks overclaiming, offering the full `/evidence-check` before proceeding. The standalone `/evidence-check` command remains optional and manual; the gate only ensures its core risk is never silently skipped on the fast path.
 
 The `/visual-layer` step runs automatically after `/generate`. It does not modify factual content — it adds `[VISUAL: ...]` placeholders, a visual plan JSON, and captions JSON to the output file.
 
@@ -205,7 +211,7 @@ This log is the input to `/learn`. The more sessions logged, the higher the conf
 - Never exaggerate contribution. If unclear, default to "contributed to" not "led."
 - Never infer launch success, adoption, or revenue impact if not provided.
 - Never convert directional signals into hard claims.
-- Never ask more than 5 follow-up questions per case study.
+- Never ask more than 5 follow-up questions per case study. This cap governs `/gap-detect` follow-ups (filling gaps after documents already exist). It does NOT apply to `/interview`, where the questions are the primary source material — that route targets ~15 questions and runs longer until the schema is covered or the user stops it.
 - Never use em dashes in generated case study text.
 - Never use bold markdown in generated case study body text.
 - Do not mention AI in any generated output.
