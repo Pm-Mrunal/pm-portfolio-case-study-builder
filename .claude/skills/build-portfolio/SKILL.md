@@ -149,10 +149,8 @@ Confirm to the user with these exact instructions:
 2. Go to [Lovable](https://lovable.dev), [Bolt](https://bolt.new), or [v0](https://v0.dev) and start a new project
 3. Attach these case study files to the chat (use the paperclip / file attachment button):
 [List each actual case study filename with its project title — use real filenames from outputs/, e.g.:]
-   - `outflow-ai-v2-2026-04-16.md` (OutFlow AI)
-   - `document-ai-oncology-v1-2026-03-31.md` (Document AI for Oncology)
-   - `myvisit-homecare-consolidation-v3-2026-03-31.md` (MyVisit and HomeCare)
-   - `health-campaign-management-v4-2026-04-01.md` (Health Campaign Management)
+   - `[project-slug]-v1-[YYYY-MM-DD].md` ([Project Title])
+   - `[project-slug]-v2-[YYYY-MM-DD].md` ([Project Title])
 4. Paste the prompt text into the chat input alongside the attachments and send
 
 The tool will generate a multi-page portfolio: a homepage (`index.html`) with case study cards, and one dedicated page per case study (`[project-slug].html`). Each card on the homepage links to its case study page. The prompt tells the tool exactly which section of each file to use for each UI component — you do not need to explain anything further.

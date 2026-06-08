@@ -1,17 +1,128 @@
 # PM Portfolio Builder
 
-Turn messy project documents into portfolio-ready PM case studies — then assemble everything into a structured vibe-coding prompt you can paste into Lovable, Bolt, or v0 to generate your portfolio website. All in one terminal session.
+Your work is strong. Your case studies should prove it and your portfolio should show it.
 
-## How It Works
+PM Portfolio Builder turns messy project material, including PRDs, notes, research, metrics, and the story in your head, into portfolio-ready product management case studies that hold up under recruiter and hiring manager review.
 
-Open this folder in Claude Code. Paste your project documents — or, if the project is only in your head and you have nothing written down, say "interview me" and answer a guided series of questions instead. Either way, answer a few questions. Get a recruiter TLDR and a detailed hiring manager version, saved to your file system. Before generating, `/quick-start` runs a silent evidence check that warns you only if your outcomes look thin or your role ownership risks overclaiming — so the fast path stays fast but never quietly ships an overclaimed case study. When you have at least one case study, run `/build-portfolio` to generate a vibe-coding prompt you can paste into Lovable, Bolt, or v0.
+Once you have case studies, it can assemble them into a ready-to-paste prompt for Lovable, Bolt, or v0 so you can build a portfolio website from your strongest work.
+
+It gives you a structured starting point instead of a blank page.
+
+## What you get
+
+For every case study, PM Portfolio Builder generates:
+
+* A recruiter TLDR that is easy to scan
+* A detailed hiring manager version with context, decisions, tradeoffs, outcomes, and reflection
+* Visual placeholders and caption suggestions
+* A polished final case study saved to your local file system
+
+For your portfolio, it generates:
+
+* A complete portfolio website prompt for a vibe coding tool of your choice
+* Your positioning, case studies, skills, about section, and contact content
+* A structured design direction for the site
+* A versioned output file that does not overwrite previous work
+
+After your portfolio is live, it can also review the site and return practical fixes for:
+
+* Positioning
+* Case study clarity
+* Recruiter scanability
+* Navigation
+* Mobile experience
+* Trust signals
+* Visual polish
+
+## When to use it
+
+Use PM Portfolio Builder when you want to:
+
+* Turn a product / project into a portfolio case study
+* Convert scattered project docs into a clear PM story
+* Show decisions, tradeoffs, outcomes, and scope
+* Build a portfolio website from your resume and case studies
+* Review a live portfolio before sharing it with recruiters or hiring managers
+
+It works best when you have some evidence from the project, such as PRDs, strategy docs, launch notes, research summaries, metrics, stakeholder notes, screenshots, or resume bullets.
+
+If you do not have documents, you can still use the interview flow. The system will ask structured questions and build the case study from your answers.
+
+## Why it is different
+
+### 1. It is evidence first
+
+PM Portfolio Builder does not invent metrics, outcomes, quotes, launch results, or ownership claims.
+
+### 2. It focuses on PM judgment
+
+The output is structured to show how you think as a PM.
+
+It highlights:
+
+* Problem framing
+* User and business context
+* Decision-making
+* Tradeoffs
+* Stakeholder alignment
+* Scope clarity
+* Evidence
+* Outcomes
+* Reflection
+
+### 3. It creates two versions
+
+Recruiters need a quick scan. Hiring managers need depth. PM Portfolio Builder creates both. You choose the one you prefer.
+
+### 4. It checks for overclaiming
+
+Includes an evidence check before generation.
+
+### 5. It improves with your feedback
+
+Running `/learn` turns repeated feedback into reusable writing preferences, so future case studies need less rework.
+
+### 6. It goes beyond the case study
+
+PM Portfolio Builder takes you from raw project material to:
+
+* Case study
+* Portfolio website prompt
+* Live portfolio review with correction prompts to paste into the site builder
+
+## How it works
+
+Start Claude Code in this folder and run:
 
 ```
-/quick-start       →  paste docs, get case study
-/interview         →  no docs? answer questions, get case study
-/build-portfolio   →  assemble everything into a portfolio website
-/review-portfolio  →  critique your live portfolio URL as a recruiter would
+/quick-start
 ```
+
+Paste your project documents when prompted.
+
+If you do not have documents, run:
+
+```
+/interview
+```
+
+The tool will ask guided questions and build the case study from your answers.
+
+Once you have at least one case study, run:
+
+```
+/build-portfolio
+```
+
+This creates a portfolio website prompt you can paste into Lovable, Bolt, or v0.
+
+After your site is live, run:
+
+```
+/review-portfolio
+```
+
+This reviews the live URL and returns prioritized fixes.
 
 ## What's Inside
 
@@ -33,11 +144,11 @@ pm-case-study-builder/
 │   ├── extract/                     # Field-level structured extraction
 │   ├── gap-detect/                  # Gap identification + targeted questions
 │   ├── generate/                    # Case study generation (TLDR + detailed)
-│   ├── visual-layer/                # Visual plan, placeholders, and captions
+│   ├── visual-layer/                # Visual placeholders, plan, and caption suggestions
 │   ├── polish/                      # Quality rewrite pass
 │   ├── evidence-check/              # Pre-generation evidence validation
 │   ├── tracker/                     # Portfolio coverage tracker
-│   ├── build-portfolio/             # Assemble full portfolio website
+│   ├── build-portfolio/             # Assemble full portfolio website prompt
 │   ├── review-portfolio/            # Critique the LIVE portfolio site (Playwright MCP)
 │   └── learn/                       # Style synthesis from editing behavior
 ├── context-library/                 # Your data — auto-created, never committed to git
@@ -46,8 +157,7 @@ pm-case-study-builder/
 │   ├── experience-library.md        # Cross-project experience bank (optional)
 │   └── portfolio-inputs.md          # Resume, LinkedIn, personal details for portfolio
 ├── sub-agents/                      # Reviewer agents
-│   ├── recruiter-reviewer.md        # Recruiter lens critique
-│   └── hiring-manager-reviewer.md   # Hiring manager lens critique
+│   └── recruiter-reviewer.md        # Recruiter-lens critique sub-agent
 ├── prompts/                         # Raw prompt library (the engine)
 │   ├── system-prompt.md             # Core generator system prompt
 │   ├── extraction-prompts.md        # Per-field extraction prompts
@@ -61,8 +171,8 @@ pm-case-study-builder/
 │   ├── recruiter-tldr.md            # TLDR output template
 │   └── hiring-manager-detailed.md   # Detailed version template
 ├── insider-data/                    # PM evaluation frameworks
-│   └── pm-frameworks/               # What recruiters and HMs actually look for
-├── outputs/                         # Generated case studies land here (not committed to git)
+│   └── pm-frameworks/               # What recruiters and hiring managers look for (not committed to git)
+├── outputs/                         # Generated case studies (not committed to git)
 │   └── portfolio/                   # Generated portfolio prompt (portfolio-prompt-[date].md)
 └── briefings/                       # Feedback log and session notes (not committed to git)
     └── feedback-log.md              # Auto-created on first session; input to /learn
@@ -70,36 +180,74 @@ pm-case-study-builder/
 
 ## Outputs
 
-All generated case studies save to `outputs/` with the filename:
-`[project-slug]-v[N]-[YYYY-MM-DD].md`
+Generated case studies are saved in:
 
-The portfolio vibe-coding prompt saves to `outputs/portfolio/portfolio-prompt-[YYYY-MM-DD].md`. Subsequent runs on the same day version as `-v2`, `-v3`, etc. — prior prompts are never overwritten. Copy the full file contents and paste into Lovable, Bolt, or v0 to generate your portfolio site.
+```text
+outputs/[project-slug]-v[N]-[YYYY-MM-DD].md
+```
 
-Once the site is live, `/review-portfolio` critiques the deployed URL and saves the scored review (with paste-back fixes and screenshots) to `outputs/portfolio-reviews/[YYYY-MM-DD].md`.
+Portfolio prompts are saved in:
 
-## Commands
+```text
+outputs/portfolio/portfolio-prompt-[YYYY-MM-DD].md
+```
 
-The two commands you need to start:
+Portfolio reviews are saved in:
 
-| Command | What It Does |
-|---|---|
-| `/quick-start` | Full pipeline in one command — paste docs, get case study |
-| `/build-portfolio` | Assemble your case studies into a paste-ready vibe-coding prompt for Lovable, Bolt, or v0 |
+```text
+outputs/portfolio-reviews/[YYYY-MM-DD].md
+```
 
-For the complete command reference (interview, ingest, extract, gap-detect, generate, visual-layer, polish, evidence-check, the recruiter and hiring-manager reviews, review-portfolio, tracker, and learn), see the Available Commands table in [`CLAUDE.md`](CLAUDE.md) — the single source of truth for commands.
+Files are versioned so previous outputs are not overwritten.
 
 ## Supported Input Formats
 
-- Paste raw text directly (PRDs, notes, bullets, research, anything)
-- Reference file paths for PDFs, DOCX, TXT files in the project folder
+* Paste raw text directly (PRDs, notes, bullets, research, anything)
+* Reference file paths for PDFs, DOCX, TXT files in the project folder
 
----
+## Recommended first run
 
-## Created By
+1. Open this folder in Claude Code.
+2. Run:
 
-**Mrunal Surve | AI Product Manager**
-🌐 [mrunalsurve.com](https://www.mrunalsurve.com/) | 💼 [LinkedIn](https://www.linkedin.com/in/mrunal-surve-iimi/)
+```bash
+/quick-start
+```
 
-Mrunal Surve is an AI Product Manager with 7+ years of experience building digital products across B2B, B2G, and B2C in Asia, Africa, and North America. He built PM Portfolio Builder as a solo project after seeing the same problem repeatedly — product managers doing genuinely strong work but unable to articulate it in writing that holds up under recruiter and hiring manager scrutiny. The tool encodes what good PM case studies actually look like, so the output isn't just polished — it reflects real judgment.
+3. Paste one project worth of documents or notes.
+4. Answer any follow-up questions.
+5. Review the case study in `outputs/`.
+6. Repeat for your strongest projects.
+7. Run:
 
-He also runs an AI Builder Bootcamp for product managers: a hands-on program covering strategy, agent design, and evaluation frameworks, helping PMs go from zero to shipping agentic AI products end-to-end.
+```bash
+/build-portfolio
+```
+
+8. Paste the generated portfolio prompt into Lovable, Bolt, or v0.
+9. Publish the site.
+10. Run:
+
+```bash
+/review-portfolio
+```
+
+## Prerequisites
+
+You will need:
+
+* A Claude subscription that supports Claude Code
+* A terminal or code editor such as Cursor or VS Code
+
+See `setup/installation-guide.md` for setup instructions.
+
+## Created by
+
+Mrunal Surve
+AI Product Manager
+Portfolio: https://www.mrunalsurve.com/
+LinkedIn: https://www.linkedin.com/in/mrunal-surve-iimi/
+
+I built PM Portfolio Builder after seeing the same problem repeatedly: product managers often do meaningful work, but their portfolios do not always show the quality of their decisions.
+
+This project helps turn real project evidence into clearer case studies and portfolio content.
