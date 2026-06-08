@@ -29,7 +29,7 @@ Format: Five labeled sub-blocks in this exact sequence. Use the label names exac
 ---
 
 At a glance
-[One sentence. Set the company/product context and name the project. Do not start with "I." Do not repeat the project title. Example: "LifeLabs is Canada's largest community diagnostics provider. This project consolidated two parallel at-home lab products into a unified self-serve portal, removing physician gating and eliminating $130K in annual bad debt."]
+[One sentence. Set the company/product context and name the project. Do not start with "I." Do not repeat the project title. Example: "Vantage is a B2B SaaS spend management platform. This project redesigned the self-serve onboarding flow to remove friction at the critical activation step, increasing 7-day activation by 22% and reducing CS onboarding calls by 40%."]
 
 ---
 

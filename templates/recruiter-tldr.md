@@ -13,7 +13,7 @@
 ---
 
 At a glance
-[One sentence. Set the company and product context, then name the project. Do not start with "I." Do not repeat the project title verbatim. Example: "LifeLabs is Canada's largest community diagnostics provider. This project consolidated two parallel at-home lab products into a unified self-serve portal, removing physician gating, eliminating $130K in annual bad debt, and simplifying field operations across Ontario."]
+[One sentence. Set the company and product context, then name the project. Do not start with "I." Do not repeat the project title verbatim. Example: "Vantage is a B2B SaaS spend management platform. This project redesigned the self-serve onboarding flow to remove friction at the critical activation step, increasing 7-day activation by 22%, reducing CS onboarding calls by 40%, and opening the SMB segment without adding headcount."]
 
 ---
 

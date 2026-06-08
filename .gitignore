@@ -20,6 +20,9 @@ briefings/*.md
 # Claude Code memory (contains personal user data)
 .claude/projects/
 
+# Local permission settings (contains personal file paths)
+.claude/settings.local.json
+
 # Skill run learnings — session-specific, user data
 references/learnings.md
 .claude/skills/*/references/
