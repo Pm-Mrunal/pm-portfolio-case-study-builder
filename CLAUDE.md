@@ -106,6 +106,7 @@ This table is the canonical command reference for the project. README.md and STA
 | `/build-portfolio` | Collect resume + LinkedIn + personal details → generate a ready-to-paste vibe-coding prompt for Lovable, Bolt, or v0 |
 | `/review-portfolio` | Visit your LIVE portfolio URL in a real browser (Playwright MCP) and critique it as a recruiter/hiring manager → scored on purpose + UI craft, with paste-back fixes for Lovable, Bolt, or v0 |
 | `/learn` | Synthesize feedback from your editing history into named style rules — approve to update your writing preferences automatically |
+| `/session-handoff` | Produce a structured end-of-session summary before you clear context — decisions, shipped changes, key files, running state, and where to pick up — so a fresh agent continues seamlessly |
 
 ---
 
