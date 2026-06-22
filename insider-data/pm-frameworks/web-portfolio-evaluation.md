@@ -1,4 +1,4 @@
-# Web Portfolio Evaluation Framework (POC DRAFT)
+# Web Portfolio Evaluation Framework 
 
 > Evaluates a LIVE, rendered portfolio website — not a case study document.
 > Fills the gap the existing frameworks don't cover: the website surface around the case studies
