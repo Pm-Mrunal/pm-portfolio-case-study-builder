@@ -4,7 +4,7 @@
 > Fills the gap the existing frameworks don't cover: the website surface around the case studies
 > (hero, about, contact, navigation, side content, trust, and UI/UX craft).
 > Pair with `evaluation-frameworks.md` (the 6-second scan + HM lens transfer directly to the rendered hero and positioning).
-> STATUS: draft, under POC validation. If the critique it produces is specific and useful, promote to a permanent framework.
+
 
 ---
 
